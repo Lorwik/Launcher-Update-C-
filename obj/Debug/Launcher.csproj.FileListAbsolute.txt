@@ -1,0 +1,42 @@
+C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\mainwindow.g.cs
+C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\Uplauncher_MarkupCompile.cache
+C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\Uplauncher_MarkupCompile.lref
+C:\Users\Pablo\Desktop\launcher\Launcher\bin\Debug\Uplauncher.exe
+C:\Users\Pablo\Desktop\launcher\Launcher\bin\Debug\Uplauncher.pdb
+C:\Users\Pablo\Desktop\launcher\Launcher\bin\Debug\DotNetZip.dll
+C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\mainwindow.baml
+C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\Uplauncher.g.resources
+C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\Uplauncher.Properties.Resources.resources
+C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\Launcher.csproj.GenerateResource.cache
+C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\Launcher.csproj.CoreCompileInputs.cache
+C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\Launcher.csproj.CopyComplete
+C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\Uplauncher.exe
+C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\Uplauncher.pdb
+C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\bin\Debug\DotNetZip.dll
+C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\mainwindow.g.cs
+C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\mainwindow.baml
+C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\Launcher.csproj.GenerateResource.cache
+C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\Launcher.csproj.CopyComplete
+C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\bin\Debug\AO Libre Launcher.exe
+C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\bin\Debug\AO Libre Launcher.pdb
+C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\AO Libre Launcher_MarkupCompile.cache
+C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\AO Libre Launcher_MarkupCompile.lref
+C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\AO Libre Launcher.g.resources
+C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\AOLibreLauncher.Properties.Resources.resources
+C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\AO Libre Launcher.exe
+C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\AO Libre Launcher.pdb
+D:\Proyectos\WinterAO\Launcher\bin\Debug\AO Libre Launcher.exe
+D:\Proyectos\WinterAO\Launcher\bin\Debug\AO Libre Launcher.pdb
+D:\Proyectos\WinterAO\Launcher\bin\Debug\DotNetZip.dll
+D:\Proyectos\WinterAO\Launcher\obj\Debug\Launcher.csprojAssemblyReference.cache
+D:\Proyectos\WinterAO\Launcher\obj\Debug\mainwindow.g.cs
+D:\Proyectos\WinterAO\Launcher\obj\Debug\AO Libre Launcher_MarkupCompile.cache
+D:\Proyectos\WinterAO\Launcher\obj\Debug\AO Libre Launcher_MarkupCompile.lref
+D:\Proyectos\WinterAO\Launcher\obj\Debug\mainwindow.baml
+D:\Proyectos\WinterAO\Launcher\obj\Debug\AO Libre Launcher.g.resources
+D:\Proyectos\WinterAO\Launcher\obj\Debug\AOLibreLauncher.Properties.Resources.resources
+D:\Proyectos\WinterAO\Launcher\obj\Debug\Launcher.csproj.GenerateResource.cache
+D:\Proyectos\WinterAO\Launcher\obj\Debug\Launcher.csproj.CoreCompileInputs.cache
+D:\Proyectos\WinterAO\Launcher\obj\Debug\Launcher.csproj.CopyComplete
+D:\Proyectos\WinterAO\Launcher\obj\Debug\AO Libre Launcher.exe
+D:\Proyectos\WinterAO\Launcher\obj\Debug\AO Libre Launcher.pdb

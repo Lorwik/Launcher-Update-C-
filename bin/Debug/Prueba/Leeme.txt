@@ -1,0 +1,3 @@
+Si este archivo con su respectiva carpeta se descargó es porque el AutoUpdate funciona.
+
+Versión actual en el hosting de prueba: 1.1
