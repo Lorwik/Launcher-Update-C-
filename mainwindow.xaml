@@ -145,7 +145,7 @@
             </ControlTemplate>
           </Control.Template>
         </Button>
-        <Label x:Name="lblDow" Content="" VerticalAlignment="Top" Margin="163,248,317,0" Height="23"
+        <Label x:Name="lblDow" Content="" VerticalAlignment="Top" Margin="33,245,349,0" Height="23"
                Padding="19,2,0,0" FontFamily="Global Sans Serif" Foreground="#C3C3C3" FontSize="16"/>
       </Grid>
     </Border>

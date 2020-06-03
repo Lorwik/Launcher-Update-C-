@@ -25,18 +25,18 @@ C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\AO Libre Lau
 C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\AOLibreLauncher.Properties.Resources.resources
 C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\AO Libre Launcher.exe
 C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\AO Libre Launcher.pdb
-D:\Proyectos\WinterAO\Launcher\bin\Debug\AO Libre Launcher.exe
-D:\Proyectos\WinterAO\Launcher\bin\Debug\AO Libre Launcher.pdb
 D:\Proyectos\WinterAO\Launcher\bin\Debug\DotNetZip.dll
 D:\Proyectos\WinterAO\Launcher\obj\Debug\Launcher.csprojAssemblyReference.cache
 D:\Proyectos\WinterAO\Launcher\obj\Debug\mainwindow.g.cs
-D:\Proyectos\WinterAO\Launcher\obj\Debug\AO Libre Launcher_MarkupCompile.cache
-D:\Proyectos\WinterAO\Launcher\obj\Debug\AO Libre Launcher_MarkupCompile.lref
 D:\Proyectos\WinterAO\Launcher\obj\Debug\mainwindow.baml
-D:\Proyectos\WinterAO\Launcher\obj\Debug\AO Libre Launcher.g.resources
-D:\Proyectos\WinterAO\Launcher\obj\Debug\AOLibreLauncher.Properties.Resources.resources
 D:\Proyectos\WinterAO\Launcher\obj\Debug\Launcher.csproj.GenerateResource.cache
 D:\Proyectos\WinterAO\Launcher\obj\Debug\Launcher.csproj.CoreCompileInputs.cache
 D:\Proyectos\WinterAO\Launcher\obj\Debug\Launcher.csproj.CopyComplete
-D:\Proyectos\WinterAO\Launcher\obj\Debug\AO Libre Launcher.exe
-D:\Proyectos\WinterAO\Launcher\obj\Debug\AO Libre Launcher.pdb
+D:\Proyectos\WinterAO\Launcher\bin\Debug\WinterAO Launcher.exe
+D:\Proyectos\WinterAO\Launcher\bin\Debug\WinterAO Launcher.pdb
+D:\Proyectos\WinterAO\Launcher\obj\Debug\WinterAO Launcher_MarkupCompile.cache
+D:\Proyectos\WinterAO\Launcher\obj\Debug\WinterAO Launcher_MarkupCompile.lref
+D:\Proyectos\WinterAO\Launcher\obj\Debug\WinterAO Launcher.g.resources
+D:\Proyectos\WinterAO\Launcher\obj\Debug\WinterAOLauncher.Properties.Resources.resources
+D:\Proyectos\WinterAO\Launcher\obj\Debug\WinterAO Launcher.exe
+D:\Proyectos\WinterAO\Launcher\obj\Debug\WinterAO Launcher.pdb
