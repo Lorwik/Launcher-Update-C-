@@ -40,3 +40,4 @@ D:\Proyectos\WinterAO\Launcher\obj\Debug\WinterAO Launcher.g.resources
 D:\Proyectos\WinterAO\Launcher\obj\Debug\WinterAOLauncher.Properties.Resources.resources
 D:\Proyectos\WinterAO\Launcher\obj\Debug\WinterAO Launcher.exe
 D:\Proyectos\WinterAO\Launcher\obj\Debug\WinterAO Launcher.pdb
+D:\Proyectos\WinterAO\Launcher\obj\Debug\WinterAO Launcher_Content.g.cs
