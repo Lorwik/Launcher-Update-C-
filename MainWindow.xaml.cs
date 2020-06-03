@@ -85,7 +85,7 @@ namespace Uplauncher{
              * Comprueba la ultima version disponible
              */
             private bool VerifyVersion(){
-                StreamReader streamReader = new StreamReader(Directory.GetCurrentDirectory() + "\\version.txt");
+                StreamReader streamReader = new StreamReader(Directory.GetCurrentDirectory() + "\\version.dat");
                 this.versionLocal = streamReader.ReadToEnd();
                 this.versionRemota = this.ReadRemoteTextFile(URLWeb + "/update/version.txt");
                 streamReader.Close();
@@ -157,12 +157,12 @@ namespace Uplauncher{
                 this.MyExtract();
             try
             {
-                    System.IO.File.Delete(Directory.GetCurrentDirectory() + "\\version.txt");
+                    System.IO.File.Delete(Directory.GetCurrentDirectory() + "\\version.dat");
                 }catch (IOException ex){
                     int num2 = (int) MessageBox.Show(ex.Message);
                 }
 
-                StreamWriter streamWriter = new StreamWriter(Directory.GetCurrentDirectory() + "\\version.txt");
+                StreamWriter streamWriter = new StreamWriter(Directory.GetCurrentDirectory() + "\\version.dat");
                 streamWriter.Write(this.ParcheActual);
                 streamWriter.Close();
             }
