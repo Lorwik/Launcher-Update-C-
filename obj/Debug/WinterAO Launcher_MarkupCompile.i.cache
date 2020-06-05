@@ -4,7 +4,7 @@
 winexe
 C#
 .cs
-D:\Proyectos\WinterAO\Launcher\obj\Debug\
+C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\obj\Debug\
 WinterAOLauncher
 none
 false
@@ -12,9 +12,9 @@ DEBUG;TRACE
 
 11150301917
 22001844431
-6255143985
-8235864569
+6277948296
+18-1276263003
 mainwindow.xaml;
 
-True
+False
 
