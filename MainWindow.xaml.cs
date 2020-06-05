@@ -25,12 +25,15 @@ namespace Uplauncher{
             private bool UpdatePendiente;   //Bandera que nos indica si tenemos actualizaciones pendientes
             private bool Actualizando;      //Bandera que nos indica si estamos en proceso de actualizacion
             private readonly string URLWeb = "http://winterao.com.ar";
-            //METODOS
+            private readonly string URLWiki = "http://winterao.com.ar/wiki/";
+            private readonly string LocalVersionFile = "\\Init\\Version.dat";
+            private readonly string RemoteVersionFile = "/update/version.txt";
+        //METODOS
 
         /**
          * Main
          */
-            public MainWindow(){
+        public MainWindow(){
                 this.InitializeComponent();
 
                 //Inicializamos las variables
@@ -85,9 +88,9 @@ namespace Uplauncher{
              * Comprueba la ultima version disponible
              */
             private bool VerifyVersion(){
-                StreamReader streamReader = new StreamReader(Directory.GetCurrentDirectory() + "\\version.dat");
+                StreamReader streamReader = new StreamReader(Directory.GetCurrentDirectory() + LocalVersionFile);
                 this.versionLocal = streamReader.ReadToEnd();
-                this.versionRemota = this.ReadRemoteTextFile(URLWeb + "/update/version.txt");
+                this.versionRemota = this.ReadRemoteTextFile(URLWeb + RemoteVersionFile);
                 streamReader.Close();
 
                 return this.versionRemota == versionLocal;
@@ -157,12 +160,12 @@ namespace Uplauncher{
                 this.MyExtract();
             try
             {
-                    System.IO.File.Delete(Directory.GetCurrentDirectory() + "\\version.dat");
+                    System.IO.File.Delete(Directory.GetCurrentDirectory() + LocalVersionFile);
                 }catch (IOException ex){
                     int num2 = (int) MessageBox.Show(ex.Message);
                 }
 
-                StreamWriter streamWriter = new StreamWriter(Directory.GetCurrentDirectory() + "\\version.dat");
+                StreamWriter streamWriter = new StreamWriter(Directory.GetCurrentDirectory() + LocalVersionFile);
                 streamWriter.Write(this.ParcheActual);
                 streamWriter.Close();
             }
@@ -201,9 +204,12 @@ namespace Uplauncher{
                             int num2 = (int)MessageBox.Show("No se ha encontrado el ejecutable de WinterAO Resurrection!", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
                         } else if (new Process() {
                             StartInfo = new ProcessStartInfo("WinterAO Resurrection.exe")
-                        }.Start()) ;
+                        }.Start());
 
-                    }else{ //Las hay, comenzamos el proceso de actualizacion
+                        this.Close();
+
+                }
+                else{ //Las hay, comenzamos el proceso de actualizacion
                         this.Actualizando = true;
                         this.Actualizar();
                     }

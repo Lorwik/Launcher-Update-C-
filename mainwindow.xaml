@@ -63,34 +63,7 @@
           </Control.Template>
         </Button>
 
-        <Button Click="btnSitio_Click" x:Name="btnManual" Content="" HorizontalAlignment="Left" Margin="314,318,0,0"
-            VerticalAlignment="Top" Width="136" Height="43" BorderBrush="{x:Null}" Foreground="{x:Null}">
-            <Control.Background>
-            <ImageBrush ImageSource="img/manual.png" Stretch="Uniform"/>
-            </Control.Background>
-            <Control.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Grid Background="{TemplateBinding Control.Background}">
-                        <StackPanel>
-                            <Image x:Name="image1" Source="img/manual_hover.png" Stretch="Uniform" Visibility="Collapsed" Height="43"/>
-                         </StackPanel>
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal"/>
-                                <VisualState x:Name="MouseOver"/>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="UIElement.IsMouseOver" Value="true">
-                            <Setter TargetName="image1" Property="UIElement.Visibility" Value="Visible"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Control.Template>
-        </Button>
-
-      <Button Click="btnJugar_Click" x:Name="btnJugar" Content="" Margin="421,361,65,0" VerticalAlignment="Top"
+                <Button Click="btnJugar_Click" x:Name="btnJugar" Content="" Margin="421,361,65,0" VerticalAlignment="Top"
                 Height="43">
           <Control.Background>
             <ImageBrush ImageSource="img/jouer.png" Stretch="Uniform"/>
