@@ -10,7 +10,6 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text.Json;
 using System.Windows;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -114,10 +113,11 @@ namespace Uplauncher
         {
             // Leemos el Version.dat local
             StreamReader localStreamReader = null;
+            string localFile = null;
             try
             {
                 localStreamReader = new StreamReader(LocalVersionFilePath);
-                string localFile = localStreamReader.ReadToEnd();
+                localFile = localStreamReader.ReadToEnd();
             } 
             catch (Exception ex)
             {
@@ -132,7 +132,7 @@ namespace Uplauncher
             // Deserializamos el Version.json local
             try
             {
-                this.versionLocal = JsonSerializer.Deserialize<VersionInformation>(LocalVersionFilePath);
+                this.versionLocal = JsonSerializer.Deserialize<VersionInformation>(localFile);
 
                 // Seteo el parche actual
                 this.ParcheActual = this.versionLocal.patches;
