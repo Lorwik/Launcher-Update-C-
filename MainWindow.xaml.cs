@@ -154,12 +154,12 @@ namespace Uplauncher
         /**
          * Descarga la actualizacion
          */
-        async void Download(string Url, string DownloadTo)
+        private void Download(string Url, string DownloadTo)
         {
             WebClient webClient = new WebClient();
             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(this.UpdateProgressChange);
             webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(this.UpdateDone);
-            await webClient.DownloadFileTaskAsync(new Uri(Url), DownloadTo);
+            webClient.DownloadFileAsync(new Uri(Url), DownloadTo);
             webClient.Dispose();
         }
 
