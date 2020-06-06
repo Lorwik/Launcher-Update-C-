@@ -8,9 +8,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
-using System.Text;
 using System.Text.Json;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -34,13 +34,17 @@ namespace Uplauncher
         private VersionInformation versionRemota;   //Version actual del cliente remoto nos dice si hay parches
         private VersionInformation versionLocal;    //Version actual Local del clienteo
 
-        private double ParcheActual;    //Indica el parche en el que nos encontramos actualmente
-        private bool UpdatePendiente;   //Bandera que nos indica si tenemos actualizaciones pendientes
-        private bool Actualizando;      //Bandera que nos indica si estamos en proceso de actualizacion
+        private double ParcheActual = 0;            //Indica el parche en el que nos encontramos actualmente
+        private bool UpdatePendiente;               //Bandera que nos indica si tenemos actualizaciones pendientes
+        private bool Actualizando = false;          //Bandera que nos indica si estamos en proceso de actualizacion
+        
         private readonly string URLWeb = "http://winterao.com.ar";
         private readonly string URLWiki = "http://winterao.com.ar/wiki/";
         private readonly string LocalVersionFile = "\\Init\\Version.json";
         private readonly string RemoteVersionFile = "/update/Version.json";
+
+        private readonly string LocalVersionFilePath = Directory.GetCurrentDirectory() + "\\Init\\Version.json";
+
         //METODOS
 
         /**
@@ -49,10 +53,6 @@ namespace Uplauncher
         public MainWindow()
         {
             this.InitializeComponent();
-
-            //Inicializamos las variables
-            this.ParcheActual = 0;
-            this.Actualizando = false;
 
             //Comprobamos la version actual del cliente
             if (this.VerifyVersion())
@@ -83,7 +83,7 @@ namespace Uplauncher
             //¿El parche actual coincide con la version remota?
             if (Convert.ToInt32(this.ParcheActual) < Convert.ToInt32(this.versionRemota.patches))
             {
-
+                // Incrementamos el contador de parches en 1 para descargar la actualizacion siguiente
                 this.ParcheActual++;
 
                 //Anunciamos el parche que estamos descargando
@@ -100,7 +100,7 @@ namespace Uplauncher
             else
             {
 
-                //int num1 = (int)MessageBox.Show("¡WinterAO ha sido actualizado! Ahora puedes jugar a la ultima versión.", "Notification");
+                MessageBox.Show("¡WinterAO ha sido actualizado! Ahora puedes jugar a la ultima versión.", "¡Enhorabuena!");
                 this.Actualizando = false;
                 this.lblDow.Content = (object)"Actualizado";
                 this.lblDow.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#00D62D"));
@@ -113,14 +113,26 @@ namespace Uplauncher
         private bool VerifyVersion()
         {
             // Leemos el Version.dat local
-            StreamReader localStreamReader = new StreamReader(Directory.GetCurrentDirectory() + LocalVersionFile);
-            string localFile = localStreamReader.ReadToEnd();
-            localStreamReader.Close();
+            StreamReader localStreamReader = null;
+            try
+            {
+                localStreamReader = new StreamReader(LocalVersionFilePath);
+                string localFile = localStreamReader.ReadToEnd();
+            } 
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                ErrorLog(ex);
+            }
+            finally
+            {
+                localStreamReader.Close();
+            }
 
             // Deserializamos el Version.json local
             try
             {
-                this.versionLocal = JsonSerializer.Deserialize<VersionInformation>(localFile);
+                this.versionLocal = JsonSerializer.Deserialize<VersionInformation>(LocalVersionFilePath);
 
                 // Seteo el parche actual
                 this.ParcheActual = this.versionLocal.patches;
@@ -128,14 +140,31 @@ namespace Uplauncher
             catch (JsonException ex)
             {
                 MessageBox.Show("Error al de-serializar: El Version.json tiene un formato inválido.");
+                ErrorLog(ex);
             }
 
-            // Leemos el Version.json remoto
-            Stream responseStream = WebRequest.Create(new Uri(URLWeb + RemoteVersionFile)).GetResponse().GetResponseStream();
-            StreamReader remoteStreamReader = new StreamReader(responseStream);
-            string remoteFile = remoteStreamReader.ReadToEnd();
-            remoteStreamReader.Close();
-            responseStream.Close();
+            Stream responseStream = null;
+            StreamReader remoteStreamReader = null;
+            string remoteFile = null;
+            try
+            {
+                // Obtenemos el archivo del servidor
+                responseStream = WebRequest.Create(new Uri(URLWeb + RemoteVersionFile)).GetResponse().GetResponseStream();
+
+                // Leemos el Version.json remoto
+                remoteStreamReader = new StreamReader(responseStream);
+                remoteFile = remoteStreamReader.ReadToEnd();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                ErrorLog(ex);
+            }
+            finally
+            {
+                remoteStreamReader.Close();
+                responseStream.Close();
+            }
 
             // Deserializamos el Version.json remoto
             try
@@ -145,6 +174,7 @@ namespace Uplauncher
             catch (JsonException ex)
             {
                 MessageBox.Show("Error al de-serializar: El Version.json del servidor tiene un formato inválido.");
+                ErrorLog(ex);
             }
 
             // Finalmente, hacemos la comparación de versiones.
@@ -156,11 +186,25 @@ namespace Uplauncher
          */
         private void Download(string Url, string DownloadTo)
         {
-            WebClient webClient = new WebClient();
-            webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(this.UpdateProgressChange);
-            webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(this.UpdateDone);
-            webClient.DownloadFileAsync(new Uri(Url), DownloadTo);
-            webClient.Dispose();
+            WebClient webClient = null;
+            try
+            {
+                webClient = new WebClient();
+                webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(this.UpdateProgressChange);
+                webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(this.UpdateDone);
+                webClient.DownloadFileAsync(new Uri(Url), DownloadTo);
+            }
+            catch (Exception ex)
+            {
+                ErrorLog(ex);
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                //call this if exception occurs or not
+                //in this example, dispose the WebClient
+                webClient.Dispose();
+            }
         }
 
         /**
@@ -255,6 +299,7 @@ namespace Uplauncher
             catch (IOException ex)
             {
                 MessageBox.Show(ex.Message);
+                ErrorLog(ex);
             }
 
             // Guardamos el Version.json del servidor en la carpeta Init
@@ -263,6 +308,8 @@ namespace Uplauncher
                 var options = new JsonSerializerOptions { WriteIndented = true };
                 
                 JsonSerializer.SerializeAsync(fs, this.versionRemota, options);
+
+                fs.Close();
             }
         }
 
@@ -297,21 +344,16 @@ namespace Uplauncher
                 //¿Hay actualizaciones pendientes?
                 if (this.UpdatePendiente == false)
                 {
-
-                    /*if (!System.IO.File.Exists("AH.dll"))
-                     {
-                     int num1 = (int) MessageBox.Show("No se ha podido encontrar el antihack!", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
-                     }*/
                     if (!System.IO.File.Exists("WinterAO Resurrection.exe"))
                     {
-                        int num2 = (int)MessageBox.Show("No se ha encontrado el ejecutable de WinterAO Resurrection!", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
+                        MessageBox.Show("No se ha encontrado el ejecutable de WinterAO Resurrection!", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
                     }
                     else if (new Process()
                     {
                         StartInfo = new ProcessStartInfo("WinterAO Resurrection.exe")
                     }.Start())
 
-                        this.Close();
+                    this.Close();
 
                 }
                 else
@@ -328,6 +370,24 @@ namespace Uplauncher
         private void btnMini_Click(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
+        }
+
+        public static void ErrorLog(Exception ex)
+        {
+            string strPath = Directory.GetCurrentDirectory();
+            if (!File.Exists(strPath))
+            {
+                File.Create(strPath).Dispose();
+            }
+            using (StreamWriter sw = File.AppendText(strPath))
+            {
+                sw.WriteLine("============= Registro de Errores ===========");
+                sw.WriteLine("===========Inicio============= " + DateTime.Now);
+                sw.WriteLine("Error Message: " + ex.Message);
+                sw.WriteLine("Stack Trace: " + ex.StackTrace);
+                sw.WriteLine("===========Fin============= " + DateTime.Now);
+
+            }
         }
     }
 }
