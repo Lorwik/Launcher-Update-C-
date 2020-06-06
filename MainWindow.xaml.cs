@@ -7,13 +7,13 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
-using System.Text;
-using System.Text.Json;
-using System.Security.Cryptography;
 
 namespace Uplauncher
 {
@@ -23,7 +23,7 @@ namespace Uplauncher
      */
     class VersionInformation
     {
-        public int patches { get; set; }
+        public double patches { get; set; }
         public string[] checksums { get; set; }
     }
 
@@ -81,11 +81,11 @@ namespace Uplauncher
         private void Actualizar()
         {
             //¿El parche actual coincide con la version remota?
-            if (Convert.ToInt32(this.ParcheActual) < Convert.ToInt32(this.versionRemota))
+            if (Convert.ToInt32(this.ParcheActual) < Convert.ToInt32(this.versionRemota.patches))
             {
 
                 this.ParcheActual++;
-                
+
                 //Anunciamos el parche que estamos descargando
                 this.lblDow.Content = "Descargando actualizacion " + this.ParcheActual;
 
@@ -93,6 +93,7 @@ namespace Uplauncher
                 string DownloadTo = Directory.GetCurrentDirectory() + "\\update" + this.ParcheActual + ".zip";
                 this.lblDow.Content = (object)"Actualizando...";
                 this.Download(URLWeb + "/update/update" + this.ParcheActual + ".zip", DownloadTo);
+
                 lblDow.Foreground = new System.Windows.Media.SolidColorBrush((Color)ColorConverter.ConvertFromString("#0092D6"));
 
             }
@@ -117,7 +118,17 @@ namespace Uplauncher
             localStreamReader.Close();
 
             // Deserializamos el Version.json local
-            this.versionLocal = JsonSerializer.Deserialize<VersionInformation>(localFile);
+            try
+            {
+                this.versionLocal = JsonSerializer.Deserialize<VersionInformation>(localFile);
+
+                // Seteo el parche actual
+                this.ParcheActual = this.versionLocal.patches;
+            }
+            catch (JsonException ex)
+            {
+                MessageBox.Show("Error al de-serializar: El Version.json tiene un formato inválido.");
+            }
 
             // Leemos el Version.json remoto
             Stream responseStream = WebRequest.Create(new Uri(URLWeb + RemoteVersionFile)).GetResponse().GetResponseStream();
@@ -127,21 +138,28 @@ namespace Uplauncher
             responseStream.Close();
 
             // Deserializamos el Version.json remoto
-            this.versionRemota = JsonSerializer.Deserialize<VersionInformation>(remoteFile);
+            try
+            {
+                this.versionRemota = JsonSerializer.Deserialize<VersionInformation>(remoteFile);
+            }
+            catch (JsonException ex)
+            {
+                MessageBox.Show("Error al de-serializar: El Version.json del servidor tiene un formato inválido.");
+            }
 
             // Finalmente, hacemos la comparación de versiones.
-            return this.versionRemota.patches == this.versionLocal.patches;
+            return this.versionRemota.patches == this.ParcheActual;
         }
 
         /**
          * Descarga la actualizacion
          */
-        private void Download(string Url, string DownloadTo)
+        async void Download(string Url, string DownloadTo)
         {
             WebClient webClient = new WebClient();
             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(this.UpdateProgressChange);
             webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(this.UpdateDone);
-            webClient.DownloadFileAsync(new Uri(Url), DownloadTo);
+            await webClient.DownloadFileTaskAsync(new Uri(Url), DownloadTo);
             webClient.Dispose();
         }
 
@@ -182,7 +200,8 @@ namespace Uplauncher
             {
                 using (var stream = File.OpenRead(filename))
                 {
-                    return Encoding.Default.GetString(md5.ComputeHash(stream));
+                    var hash = md5.ComputeHash(stream);
+                    return BitConverter.ToString(hash).Replace("-", "");
                 }
             }
         }
@@ -206,21 +225,45 @@ namespace Uplauncher
         private void UpdateDone(object sender, AsyncCompletedEventArgs e)
         {
 
+            string file = Directory.GetCurrentDirectory() + LocalVersionFile;
+
+            string checksumArchivoLocal = checkMD5(Directory.GetCurrentDirectory() + "\\update" + ParcheActual + ".zip");
+            string checksumArchivoRemoto = this.versionRemota.checksums[Convert.ToInt32(this.ParcheActual)];
+
+            if (checksumArchivoLocal == checksumArchivoRemoto)
+            {
+                MessageBox.Show("El MD5 de esta actualización COINCIDE!");
+            }
+            else
+            {
+                string error = "El MD5 de esta actualización NO COINCIDE!" + "\r\n" +
+                    "Archivo: update" + ParcheActual + "\r\n" +
+                    "MD5 Local:" + checksumArchivoRemoto + "\r\n" +
+                    "MD5 Remoto: " + checksumArchivoRemoto;
+                
+                MessageBox.Show(error);
+                System.Diagnostics.Debug.WriteLine(error);
+            }
+
             //Posible mensaje de parche instalado
             //Extraemos
             this.MyExtract();
             try
             {
-                System.IO.File.Delete(Directory.GetCurrentDirectory() + LocalVersionFile);
+                System.IO.File.Delete(file);
             }
             catch (IOException ex)
             {
-                int num2 = (int)MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message);
             }
 
-            StreamWriter streamWriter = new StreamWriter(Directory.GetCurrentDirectory() + LocalVersionFile);
-            streamWriter.Write(this.ParcheActual);
-            streamWriter.Close();
+            // Guardamos el Version.json del servidor en la carpeta Init
+            using (FileStream fs = File.Create(file))
+            {
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                
+                JsonSerializer.SerializeAsync(fs, this.versionRemota, options);
+            }
         }
 
         /**
@@ -263,11 +306,12 @@ namespace Uplauncher
                     {
                         int num2 = (int)MessageBox.Show("No se ha encontrado el ejecutable de WinterAO Resurrection!", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
                     }
-                    else if (new Process() {
+                    else if (new Process()
+                    {
                         StartInfo = new ProcessStartInfo("WinterAO Resurrection.exe")
                     }.Start())
 
-                    this.Close();
+                        this.Close();
 
                 }
                 else
