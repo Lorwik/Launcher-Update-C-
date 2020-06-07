@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 
 [assembly: AssemblyTitle("WinterAO Launcher")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Launcher oficial de WinterAO Resurrection")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("WinterAO Resurrection")]
 [assembly: AssemblyProduct("WinterAO Launcher")]
