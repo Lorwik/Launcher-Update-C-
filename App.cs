@@ -8,26 +8,47 @@ using System;
 using System.CodeDom.Compiler;
 using System.Diagnostics;
 using System.Windows;
+using System.Threading;
+using System.Reflection;
 
 namespace Uplauncher
 {
-  public class App : Application
-  {
-    [DebuggerNonUserCode]
-    [GeneratedCode("PresentationBuildTasks", "4.0.0.0")]
-    public void InitializeComponent()
+    public class App : Application
     {
-      this.StartupUri = new Uri("MainWindow.xaml", UriKind.Relative);
-    }
+        [DebuggerNonUserCode]
+        [GeneratedCode("PresentationBuildTasks", "4.0.0.0")]
+        public void InitializeComponent()
+        {
+            this.StartupUri = new Uri("MainWindow.xaml", UriKind.Relative);
+        }
 
-    [STAThread]
-    [DebuggerNonUserCode]
-    [GeneratedCode("PresentationBuildTasks", "4.0.0.0")]
-    public static void Main()
-    {
-      App app = new App();
-      app.InitializeComponent();
-      app.Run();
+        [STAThread]
+        [DebuggerNonUserCode]
+        [GeneratedCode("PresentationBuildTasks", "4.0.0.0")]
+        public static void Main()
+        {
+			// Si detectamos otra instancia de la aplicación, la cerramos.
+            bool onlyInstance = false;
+            Mutex mutex = new Mutex(true, @"Global\WinterAO_Launcher", out onlyInstance);
+            if (!onlyInstance)
+            {
+                MessageBox.Show("El launcher ya esta abierto.", "Error", MessageBoxButton.OK);
+                Environment.Exit(0);
+            }
+            
+            try
+            {
+                App app = new App();
+                app.InitializeComponent();
+                app.Run();
+
+                // Prevenimos que el GarbageCollector limpie el Mutex si la aplicación se ejecuta durante mucho tiempo.
+                GC.KeepAlive(mutex);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message);
+            }
+        }
     }
-  }
 }
