@@ -301,7 +301,7 @@ namespace Uplauncher
                 else
                 {
                     // Si elige no volver a descargar la actualización, cerramos el launcher.
-                    Environment.Exit(0);
+                    this.Close();
                 }
 
             }
@@ -351,25 +351,42 @@ namespace Uplauncher
         }
 
         /**
-         * Boton de jugar
+         * Boton 'Jugar'
+         * 
+         * Si el cliente esta ACTUALIZADO y existe el ejecutable del cliente, lo abrimos.
+         * Si el cliente NO esta ACTUALIZADO, descargamos e instalamos las actualizaciones.
          */
         private void btnJugar_Click(object sender, RoutedEventArgs e)
         {
             if (this.Actualizando == false)
             {
+                // Ubicación del ejecutable del cliente.
+                string executable = Directory.GetCurrentDirectory() + "/WinterAO Resurrection.exe";
+
                 //¿Hay actualizaciones pendientes?
                 if (this.UpdatePendiente == false)
                 {
-                    if (!File.Exists("WinterAO Resurrection.exe"))
+                    if (File.Exists(executable))
                     {
-                        MessageBox.Show("No se ha encontrado el ejecutable de WinterAO Resurrection!", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
-                    }
-                    else if (new Process()
-                    {
-                        StartInfo = new ProcessStartInfo("WinterAO Resurrection.exe")
-                    }.Start())
 
-                    this.Close();
+                        ProcessStartInfo startInfo = new ProcessStartInfo();
+                        startInfo.FileName = executable;
+                        startInfo.UseShellExecute = false;
+
+                        try
+                        {
+                            // Start the process with the info we specified.
+                            Process.Start(startInfo);
+
+                            // Cerramos el launcher.
+                            this.Close();
+                        }
+                        catch (Exception ex)
+                        {
+                            ErrorLog(ex);
+                            MessageBox.Show(ex.Message);
+                        }
+                    }
 
                 }
                 else
