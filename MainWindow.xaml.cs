@@ -14,9 +14,8 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 
-namespace Uplauncher
+namespace Launcher
 {
-
     /*
      * Clase utilizada para des-serializar el Version.json del servidor.
      */
@@ -36,7 +35,7 @@ namespace Uplauncher
         private double ParcheActual = 0;            //Indica el parche en el que nos encontramos actualmente
         private bool UpdatePendiente;               //Bandera que nos indica si tenemos actualizaciones pendientes
         private bool Actualizando = false;          //Bandera que nos indica si estamos en proceso de actualizacion
-        
+
         private readonly string URLWeb = "http://winterao.com.ar";
         private readonly string URLWiki = "http://winterao.com.ar/wiki/";
         private readonly string LocalVersionFile = "\\Init\\Version.json";
@@ -118,7 +117,7 @@ namespace Uplauncher
             {
                 localStreamReader = new StreamReader(LocalVersionFilePath);
                 localFile = localStreamReader.ReadToEnd();
-            } 
+            }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
@@ -280,13 +279,13 @@ namespace Uplauncher
                 string error = "El MD5 de esta actualización NO COINCIDE!" + "\r\n" +
                                 "Archivo: update" + ParcheActual + "\r\n" +
                                 "MD5 Local:" + checksumArchivoRemoto + "\r\n" +
-                                "MD5 Remoto: " + checksumArchivoRemoto + "\r\n\r\n" + 
+                                "MD5 Remoto: " + checksumArchivoRemoto + "\r\n\r\n" +
                                 "¿Desea intentar descargar la actualización una vez mas?";
 
                 MessageBoxResult badUpdate = MessageBox.Show(error, "Descarga Corrupta", MessageBoxButton.YesNo);
 
                 // Le preguntamos si quiere descargar la actualización 1 vez mas.
-                if(badUpdate == MessageBoxResult.Yes)
+                if (badUpdate == MessageBoxResult.Yes)
                 {
                     // Borramos la actualización corrupta.
                     File.Delete(Directory.GetCurrentDirectory() + "update" + this.ParcheActual + ".zip");
@@ -308,6 +307,8 @@ namespace Uplauncher
 
             //Extraemos la actualización.
             this.MyExtract();
+
+            // Borramos el update.zip descargado.
             try
             {
                 File.Delete(file);
@@ -322,7 +323,7 @@ namespace Uplauncher
             using (FileStream fs = File.Create(file))
             {
                 var options = new JsonSerializerOptions { WriteIndented = true };
-                
+
                 JsonSerializer.SerializeAsync(fs, this.versionRemota, options);
 
                 fs.Close();
