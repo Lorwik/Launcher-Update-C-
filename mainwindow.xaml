@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Uplauncher"
-        WindowStyle="none" AllowsTransparency="true" Background="Transparent" Title="Updater Roshan"
+        WindowStyle="none" AllowsTransparency="true" Background="Transparent" Title="Launcher - WinterAO Resurrection"
         Height="444.3" Width="664.576" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         Icon="favicon.ico" Foreground="{x:Null}">
   <Grid x:Name="gPrincipal" Height="404" VerticalAlignment="Top" HorizontalAlignment="Left" Width="616"

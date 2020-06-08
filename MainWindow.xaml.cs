@@ -215,7 +215,7 @@ namespace Uplauncher
             string str = Directory.GetCurrentDirectory() + "\\update" + ParcheActual + ".zip";
             string baseDirectory = Directory.GetCurrentDirectory();
 
-            if (!System.IO.File.Exists(str)) return;
+            if (!File.Exists(str)) return;
 
             using (ZipFile zipFile = ZipFile.Read(str))
             {
@@ -225,6 +225,7 @@ namespace Uplauncher
             try
             {
                 System.IO.File.Delete(str);
+
                 //Volvemos a llamar al Actualizar
                 this.Actualizar();
 
@@ -274,27 +275,42 @@ namespace Uplauncher
             string checksumArchivoLocal = checkMD5(Directory.GetCurrentDirectory() + "\\update" + ParcheActual + ".zip");
             string checksumArchivoRemoto = this.versionRemota.checksums[Convert.ToInt32(this.ParcheActual)];
 
-            if (checksumArchivoLocal == checksumArchivoRemoto)
-            {
-                MessageBox.Show("El MD5 de esta actualización COINCIDE!");
-            }
-            else
+            if (checksumArchivoLocal != checksumArchivoRemoto)
             {
                 string error = "El MD5 de esta actualización NO COINCIDE!" + "\r\n" +
-                    "Archivo: update" + ParcheActual + "\r\n" +
-                    "MD5 Local:" + checksumArchivoRemoto + "\r\n" +
-                    "MD5 Remoto: " + checksumArchivoRemoto;
-                
-                MessageBox.Show(error);
-                System.Diagnostics.Debug.WriteLine(error);
+                                "Archivo: update" + ParcheActual + "\r\n" +
+                                "MD5 Local:" + checksumArchivoRemoto + "\r\n" +
+                                "MD5 Remoto: " + checksumArchivoRemoto + "\r\n\r\n" + 
+                                "¿Desea intentar descargar la actualización una vez mas?";
+
+                MessageBoxResult badUpdate = MessageBox.Show(error, "Descarga Corrupta", MessageBoxButton.YesNo);
+
+                // Le preguntamos si quiere descargar la actualización 1 vez mas.
+                if(badUpdate == MessageBoxResult.Yes)
+                {
+                    // Borramos la actualización corrupta.
+                    File.Delete(Directory.GetCurrentDirectory() + "update" + this.ParcheActual + ".zip");
+
+                    // Decrementamos el contador de parche actual en 1 para volver a descargar la actualización.
+                    --this.ParcheActual;
+
+                    // Salimos del método.
+                    Actualizar();
+                    return;
+                }
+                else
+                {
+                    // Si elige no volver a descargar la actualización, cerramos el launcher.
+                    Environment.Exit(0);
+                }
+
             }
 
-            //Posible mensaje de parche instalado
-            //Extraemos
+            //Extraemos la actualización.
             this.MyExtract();
             try
             {
-                System.IO.File.Delete(file);
+                File.Delete(file);
             }
             catch (IOException ex)
             {
@@ -344,7 +360,7 @@ namespace Uplauncher
                 //¿Hay actualizaciones pendientes?
                 if (this.UpdatePendiente == false)
                 {
-                    if (!System.IO.File.Exists("WinterAO Resurrection.exe"))
+                    if (!File.Exists("WinterAO Resurrection.exe"))
                     {
                         MessageBox.Show("No se ha encontrado el ejecutable de WinterAO Resurrection!", "Error", MessageBoxButton.OK, MessageBoxImage.Hand);
                     }
