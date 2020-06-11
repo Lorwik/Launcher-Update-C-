@@ -9,7 +9,6 @@ using System.CodeDom.Compiler;
 using System.Diagnostics;
 using System.Windows;
 using System.Threading;
-using System.Reflection;
 
 namespace Launcher
 {
@@ -27,6 +26,7 @@ namespace Launcher
         [GeneratedCode("PresentationBuildTasks", "4.0.0.0")]
         public static void Main()
         {
+
             // Si detectamos otra instancia de la aplicación, la cerramos.
             bool onlyInstance = false;
             Mutex mutex = new Mutex(true, @"Global\WinterAO_Launcher", out onlyInstance);
