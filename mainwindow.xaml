@@ -1,157 +1,157 @@
-<Window x:Class="Uplauncher.MainWindow"
+<Window x:Class="Launcher.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Uplauncher"
-        WindowStyle="none" AllowsTransparency="true" Background="Transparent" Title="Updater Roshan"
+        xmlns:local="clr-namespace:Launcher"
+        WindowStyle="none" AllowsTransparency="true" Background="Transparent" Title="Launcher - WinterAO Resurrection"
         Height="444.3" Width="664.576" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         Icon="favicon.ico" Foreground="{x:Null}">
-  <Grid x:Name="gPrincipal" Height="404" VerticalAlignment="Top" HorizontalAlignment="Left" Width="616"
+    <Grid x:Name="gPrincipal" Height="404" VerticalAlignment="Top" HorizontalAlignment="Left" Width="616"
         Margin="22,21,0,0">
-    <Grid Margin="14,37,0,0" HorizontalAlignment="Left" Width="587" Height="329" VerticalAlignment="Top">
-      <Panel.Background>
-        <ImageBrush ImageSource="img/1.png"/>
-      </Panel.Background>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="528"/>
-      </Grid.ColumnDefinitions>
-    </Grid>
-    <Border MouseLeftButtonDown="Border_MouseLeftButtonDown" CornerRadius="10" Margin="0,-6,0,0" Height="410"
+        <Grid Margin="14,37,0,0" HorizontalAlignment="Left" Width="587" Height="329" VerticalAlignment="Top">
+            <Panel.Background>
+                <ImageBrush ImageSource="img/1.png"/>
+            </Panel.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="528"/>
+            </Grid.ColumnDefinitions>
+        </Grid>
+        <Border MouseLeftButtonDown="Border_MouseLeftButtonDown" CornerRadius="10" Margin="0,-6,0,0" Height="410"
             VerticalAlignment="Top">
-      <Border.Background>
-        <ImageBrush ImageSource="img/Fenetre.png"/>
-      </Border.Background>
-      <Grid>
-          
-        <ProgressBar x:Name="pbar" Height="17" Margin="59,374,212,0" VerticalAlignment="Top">
-          <Control.BorderBrush>
-            <ImageBrush ImageSource="img/fond.png"/>
-          </Control.BorderBrush>
-          <Control.Foreground>
-            <ImageBrush ImageSource="img/progress_bar_vert.png"/>
-          </Control.Foreground>
-          <Control.Background>
-            <ImageBrush/>
-          </Control.Background>
-        </ProgressBar>
-          
-        <Button Click="btnSitio_Click" x:Name="btnSitio" Content="" HorizontalAlignment="Left" Margin="450,318,0,0"
+            <Border.Background>
+                <ImageBrush ImageSource="img/Fenetre.png"/>
+            </Border.Background>
+            <Grid>
+
+                <ProgressBar x:Name="pbar" Height="17" Margin="59,374,212,0" VerticalAlignment="Top">
+                    <Control.BorderBrush>
+                        <ImageBrush ImageSource="img/fond.png"/>
+                    </Control.BorderBrush>
+                    <Control.Foreground>
+                        <ImageBrush ImageSource="img/progress_bar_vert.png"/>
+                    </Control.Foreground>
+                    <Control.Background>
+                        <ImageBrush/>
+                    </Control.Background>
+                </ProgressBar>
+
+                <Button Click="btnSitio_Click" x:Name="btnSitio" Content="" HorizontalAlignment="Left" Margin="450,318,0,0"
                 VerticalAlignment="Top" Width="136" Height="43" BorderBrush="{x:Null}" Foreground="{x:Null}">
-          <Control.Background>
-            <ImageBrush ImageSource="img/site.png" Stretch="Uniform"/>
-          </Control.Background>
-          <Control.Template>
-            <ControlTemplate TargetType="{x:Type Button}">
-              <Grid Background="{TemplateBinding Control.Background}">
-                <StackPanel>
-                  <Image x:Name="image1" Source="img/site_hover.png" Stretch="Uniform" Visibility="Collapsed" Height="43"/>
-                </StackPanel>
-                <VisualStateManager.VisualStateGroups>
-                  <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal"/>
-                    <VisualState x:Name="MouseOver"/>
-                  </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-              </Grid>
-              <ControlTemplate.Triggers>
-                <Trigger Property="UIElement.IsMouseOver" Value="true">
-                  <Setter TargetName="image1" Property="UIElement.Visibility" Value="Visible"/>
-                </Trigger>
-              </ControlTemplate.Triggers>
-            </ControlTemplate>
-          </Control.Template>
-        </Button>
+                    <Control.Background>
+                        <ImageBrush ImageSource="img/site.png" Stretch="Uniform"/>
+                    </Control.Background>
+                    <Control.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid Background="{TemplateBinding Control.Background}">
+                                <StackPanel>
+                                    <Image x:Name="image1" Source="img/site_hover.png" Stretch="Uniform" Visibility="Collapsed" Height="43"/>
+                                </StackPanel>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="MouseOver"/>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="UIElement.IsMouseOver" Value="true">
+                                    <Setter TargetName="image1" Property="UIElement.Visibility" Value="Visible"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Control.Template>
+                </Button>
 
                 <Button Click="btnJugar_Click" x:Name="btnJugar" Content="" Margin="421,361,65,0" VerticalAlignment="Top"
                 Height="43">
-          <Control.Background>
-            <ImageBrush ImageSource="img/jouer.png" Stretch="Uniform"/>
-          </Control.Background>
-          <Control.Template>
-            <ControlTemplate TargetType="{x:Type Button}">
-              <Grid Background="{TemplateBinding Control.Background}">
-                <StackPanel>
-                  <Image Name="jugar" Source="img/jouer_hover.png" Stretch="Uniform" Visibility="Collapsed" Height="43"/>
-                  <Image Name="jugar2" Source="img/jouer_disabled.png" Stretch="Uniform" Visibility="Collapsed" Height="43"/>
-                </StackPanel>
-                <VisualStateManager.VisualStateGroups>
-                  <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal"/>
-                    <VisualState x:Name="MouseOver"/>
-                  </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-              </Grid>
-              <ControlTemplate.Triggers>
-                <Trigger Property="UIElement.IsMouseOver" Value="true">
-                  <Setter TargetName="jugar" Property="UIElement.Visibility" Value="Visible"/>
-                </Trigger>
-                <Trigger Property="UIElement.IsEnabled" Value="false">
-                  <Setter TargetName="jugar2" Property="UIElement.Visibility" Value="Visible"/>
-                </Trigger>
-              </ControlTemplate.Triggers>
-            </ControlTemplate>
-          </Control.Template>
-        </Button>
-          
-        <Button Click="btnSalir_Click" x:Name="btnSalir" Content="" HorizontalAlignment="Left"
+                    <Control.Background>
+                        <ImageBrush ImageSource="img/jouer.png" Stretch="Uniform"/>
+                    </Control.Background>
+                    <Control.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid Background="{TemplateBinding Control.Background}">
+                                <StackPanel>
+                                    <Image Name="jugar" Source="img/jouer_hover.png" Stretch="Uniform" Visibility="Collapsed" Height="43"/>
+                                    <Image Name="jugar2" Source="img/jouer_disabled.png" Stretch="Uniform" Visibility="Collapsed" Height="43"/>
+                                </StackPanel>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="MouseOver"/>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="UIElement.IsMouseOver" Value="true">
+                                    <Setter TargetName="jugar" Property="UIElement.Visibility" Value="Visible"/>
+                                </Trigger>
+                                <Trigger Property="UIElement.IsEnabled" Value="false">
+                                    <Setter TargetName="jugar2" Property="UIElement.Visibility" Value="Visible"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Control.Template>
+                </Button>
+
+                <Button Click="btnSalir_Click" x:Name="btnSalir" Content="" HorizontalAlignment="Left"
                 VerticalAlignment="Top" Width="16" Height="16" Margin="579,27,0,0"
                 RenderTransformOrigin="0.206,0.875" BorderBrush="{x:Null}" Foreground="{x:Null}">
-          <Control.Background>
-            <ImageBrush ImageSource="img/fermer.png" Stretch="Uniform"/>
-          </Control.Background>
-          <Control.Template>
-            <ControlTemplate TargetType="{x:Type Button}">
-              <Grid Background="{TemplateBinding Control.Background}">
-                <StackPanel>
-                  <Image Name="cerrar2" Source="img/fermer_hover.png" Stretch="Uniform" Visibility="Collapsed" Height="16"
+                    <Control.Background>
+                        <ImageBrush ImageSource="img/fermer.png" Stretch="Uniform"/>
+                    </Control.Background>
+                    <Control.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid Background="{TemplateBinding Control.Background}">
+                                <StackPanel>
+                                    <Image Name="cerrar2" Source="img/fermer_hover.png" Stretch="Uniform" Visibility="Collapsed" Height="16"
                          Width="16" RenderTransformOrigin="0.206,0.875" Margin="0,0"/>
-                </StackPanel>
-                <VisualStateManager.VisualStateGroups>
-                  <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal"/>
-                    <VisualState x:Name="MouseOver"/>
-                  </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-              </Grid>
-              <ControlTemplate.Triggers>
-                <Trigger Property="UIElement.IsMouseOver" Value="true">
-                  <Setter TargetName="cerrar2" Property="UIElement.Visibility" Value="Visible"/>
-                </Trigger>
-              </ControlTemplate.Triggers>
-            </ControlTemplate>
-          </Control.Template>
-        </Button>
-        <Button Click="btnMini_Click" x:Name="btnMini" Content="" HorizontalAlignment="Left"
+                                </StackPanel>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="MouseOver"/>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="UIElement.IsMouseOver" Value="true">
+                                    <Setter TargetName="cerrar2" Property="UIElement.Visibility" Value="Visible"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Control.Template>
+                </Button>
+                <Button Click="btnMini_Click" x:Name="btnMini" Content="" HorizontalAlignment="Left"
                 VerticalAlignment="Top" Width="16" Margin="563,27,0,0" Height="16">
-          <Control.Background>
-            <ImageBrush ImageSource="img/reduire.png" Stretch="Uniform"/>
-          </Control.Background>
-          <Control.Template>
-            <ControlTemplate TargetType="{x:Type Button}">
-              <Grid Background="{TemplateBinding Control.Background}">
-                <StackPanel>
-                  <Image Name="mini2" Source="img/reduire_hover.png" Stretch="Uniform" Visibility="Collapsed" Height="16"
+                    <Control.Background>
+                        <ImageBrush ImageSource="img/reduire.png" Stretch="Uniform"/>
+                    </Control.Background>
+                    <Control.Template>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Grid Background="{TemplateBinding Control.Background}">
+                                <StackPanel>
+                                    <Image Name="mini2" Source="img/reduire_hover.png" Stretch="Uniform" Visibility="Collapsed" Height="16"
                          Width="16" RenderTransformOrigin="0.206,0.875" Margin="0,0"/>
-                </StackPanel>
-                <VisualStateManager.VisualStateGroups>
-                  <VisualStateGroup x:Name="CommonStates">
-                    <VisualState x:Name="Normal"/>
-                    <VisualState x:Name="MouseOver"/>
-                  </VisualStateGroup>
-                </VisualStateManager.VisualStateGroups>
-              </Grid>
-              <ControlTemplate.Triggers>
-                <Trigger Property="UIElement.IsMouseOver" Value="true">
-                  <Setter TargetName="mini2" Property="UIElement.Visibility" Value="Visible"/>
-                </Trigger>
-              </ControlTemplate.Triggers>
-            </ControlTemplate>
-          </Control.Template>
-        </Button>
-        <Label x:Name="lblDow" Content="" VerticalAlignment="Top" Margin="33,245,349,0" Height="23"
+                                </StackPanel>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal"/>
+                                        <VisualState x:Name="MouseOver"/>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="UIElement.IsMouseOver" Value="true">
+                                    <Setter TargetName="mini2" Property="UIElement.Visibility" Value="Visible"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Control.Template>
+                </Button>
+                <Label x:Name="lblDow" Content="" VerticalAlignment="Top" Margin="31,245,146,0" Height="23"
                Padding="19,2,0,0" FontFamily="Global Sans Serif" Foreground="#C3C3C3" FontSize="16"/>
-      </Grid>
-    </Border>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

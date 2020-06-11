@@ -1,6 +1,6 @@
 ﻿// Decompiled with JetBrains decompiler
-// Type: Uplauncher.App
-// Assembly: Uplauncher, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+// Type: Launcher.App
+// Assembly: Launcher, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 // MVID: 29525C92-FB0F-4435-AC09-51B78CB2F18A
 // Assembly location: C:\Users\Pablo\Desktop\Dofus Decay 2.43 BETA\Launcher Dofus Decay.exe
 
@@ -9,9 +9,8 @@ using System.CodeDom.Compiler;
 using System.Diagnostics;
 using System.Windows;
 using System.Threading;
-using System.Reflection;
 
-namespace Uplauncher
+namespace Launcher
 {
     public class App : Application
     {
@@ -27,7 +26,8 @@ namespace Uplauncher
         [GeneratedCode("PresentationBuildTasks", "4.0.0.0")]
         public static void Main()
         {
-			// Si detectamos otra instancia de la aplicación, la cerramos.
+
+            // Si detectamos otra instancia de la aplicación, la cerramos.
             bool onlyInstance = false;
             Mutex mutex = new Mutex(true, @"Global\WinterAO_Launcher", out onlyInstance);
             if (!onlyInstance)
@@ -35,7 +35,7 @@ namespace Uplauncher
                 MessageBox.Show("El launcher ya esta abierto.", "Error", MessageBoxButton.OK);
                 Environment.Exit(0);
             }
-            
+
             try
             {
                 App app = new App();
