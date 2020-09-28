@@ -1,13 +1,8 @@
 ﻿// AO Libre C# Launcher by Pablo M. Duval (Discord: Abusivo#1215)
 // Este launcher y todo su contenido incluyendo sus códigos son de uso público y gratuito.
 
-using Ionic.Zip;
-using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
 using System.Net;
-using System.Text.Json;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Markup;
@@ -20,7 +15,7 @@ namespace Launcher
     {
 
         //ATRIBUTOS
-        private readonly IO io = new IO();
+        private readonly IO local = new IO();
         private readonly Networking networking = new Networking();
 
         //METODOS
@@ -32,22 +27,22 @@ namespace Launcher
         {
             this.InitializeComponent();
 
-            int updates = networking.VerifyVersion().Count;
+            local.ArchivosDesactualizados = networking.CheckOutdatedFiles().Count;
 
             //Comprobamos la version actual del cliente
-            if (updates == 0)
+            if (local.ArchivosDesactualizados == 0)
             {
-                io.ActualizacionPendiente = false;
+                local.ActualizacionPendiente = false;
 
                 pbar.Value = 100.0;
                 lblDow.Content = "Actualizado";
                 lblDow.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00D62D"));
             }
             else //Si el cliente no esta actualizado, lo notificamos
-            { 
-                io.ActualizacionPendiente = true;
+            {
+                local.ActualizacionPendiente = true;
 
-                lblDow.Content = "Tienes " + updates +  " archivos pendientes por descargar...";
+                lblDow.Content = "Tienes " + local.ArchivosDesactualizados +  " archivos desactualizados...";
                 lblDow.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF0000"));
             }
 
@@ -114,7 +109,7 @@ namespace Launcher
         private void btnJugar_Click(object sender, RoutedEventArgs e)
         {
             // Si estamos actualizando el cliente no lo dejo clickear este boton.
-            if (io.Actualizando == true) return;
+            if (local.Actualizando == true) return;
 
             networking.Get_RemoteVersion();
 

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Security.Cryptography;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 using System.Windows;
 
 namespace Launcher.src
@@ -11,6 +10,8 @@ namespace Launcher.src
     {
         public bool ActualizacionPendiente;
         public bool Actualizando;
+
+        public int ArchivosDesactualizados = 0;
 
         private static string VERSIONFILE_PATH = Directory.GetCurrentDirectory() + "\\Init\\VersionInfo2.json";
 
@@ -46,7 +47,7 @@ namespace Launcher.src
             // Deserializamos el Version.json local
             VersionInformation versionLocal = null;
             try {
-                versionLocal = JsonSerializer.Deserialize<VersionInformation>(localFile);
+                versionLocal = JsonConvert.DeserializeObject<VersionInformation>(localFile);
             } catch (JsonException) {
                 MessageBox.Show("Error al de-serializar: El Version.json tiene un formato inválido.");
             }

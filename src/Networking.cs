@@ -1,26 +1,22 @@
 ﻿using System.Net;
 using System.IO;
-using System.Text.Json;
 using System.Windows;
-using System.Linq;
-using System.Diagnostics;
-using System.Windows.Documents;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Launcher.src
 {
     class Networking
     {
         private static WebClient webClient = new WebClient();
+        public List<string> fileQueue = new List<string>();
 
         private static readonly string VERSIONFILE_URI = "https://winterao.com.ar/update/cliente/VersionInfo2.json";
-
-        public List<string> fileQueue = new List<string>();
 
         /**
          * Comprueba la ultima version disponible
          */
-        public List<string> VerifyVersion()
+        public List<string> CheckOutdatedFiles()
         {
             VersionInformation versionLocal = IO.Get_LocalVersion();
             VersionInformation versionRemota = Get_RemoteVersion();
@@ -72,7 +68,7 @@ namespace Launcher.src
             // Deserializamos el Version.json remoto
             VersionInformation versionRemota = null;
             try {
-                versionRemota = JsonSerializer.Deserialize<VersionInformation>(response);
+                versionRemota = JsonConvert.DeserializeObject<VersionInformation>(response);
             } catch (JsonException) {
                 MessageBox.Show("Error al de-serializar: El Version.json del servidor tiene un formato inválido.");
             }
