@@ -37,7 +37,6 @@ namespace Launcher
         private bool Actualizando = false;          //Bandera que nos indica si estamos en proceso de actualizacion
 
         private readonly string URLWeb = "http://winterao.com.ar";
-        private readonly string URLWiki = "http://winterao.com.ar/wiki/";
         private readonly string LocalVersionFile = "\\Init\\Version.json";
         private readonly string RemoteVersionFile = "/update/Version.json";
 

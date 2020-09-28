@@ -50,7 +50,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <ApplicationIcon>assets\favicon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -94,10 +94,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App.cs" />
+    <Compile Include="src\App.cs" />
     <Compile Include="Properties\Resources.cs" />
     <Compile Include="Properties\Settings.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="src\MainWindow.xaml.cs">
       <DependentUpon>mainwindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -115,29 +115,29 @@
     <Resource Include="docs\mysqlparameter.xml" />
     <Resource Include="docs\mysqlparametercollection.xml" />
     <Resource Include="docs\mysqltransaction.xml" />
-    <Resource Include="favicon.ico" />
-    <Resource Include="img\1.png" />
-    <Resource Include="img\favicon.ico" />
-    <Resource Include="img\fenetre.png" />
-    <Resource Include="img\fermer.png" />
-    <Resource Include="img\fermer_hover.png" />
-    <Resource Include="img\fond.png" />
-    <Resource Include="img\jouer.png" />
-    <Resource Include="img\jouer_disabled.png" />
-    <Resource Include="img\jouer_hover.png" />
-    <Resource Include="img\on.png" />
-    <Resource Include="img\progress_bar_rouge.png" />
-    <Resource Include="img\progress_bar_vert.png" />
-    <Resource Include="img\reduire.png" />
-    <Resource Include="img\reduire_hover.png" />
-    <Resource Include="img\site.png" />
-    <Resource Include="img\site_hover.png" />
+    <Resource Include="assets\favicon.ico" />
+    <Resource Include="assets\img\1.png" />
+    <Resource Include="assets\img\favicon.ico" />
+    <Resource Include="assets\img\fenetre.png" />
+    <Resource Include="assets\img\fermer.png" />
+    <Resource Include="assets\img\fermer_hover.png" />
+    <Resource Include="assets\img\fond.png" />
+    <Resource Include="assets\img\jouer.png" />
+    <Resource Include="assets\img\jouer_disabled.png" />
+    <Resource Include="assets\img\jouer_hover.png" />
+    <Resource Include="assets\img\on.png" />
+    <Resource Include="assets\img\progress_bar_rouge.png" />
+    <Resource Include="assets\img\progress_bar_vert.png" />
+    <Resource Include="assets\img\reduire.png" />
+    <Resource Include="assets\img\reduire_hover.png" />
+    <Resource Include="assets\img\site.png" />
+    <Resource Include="assets\img\site_hover.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="mainwindow.xaml">
+    <Page Include="src\mainwindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -155,8 +155,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="img\manual.png" />
-    <Content Include="img\manual_hover.png" />
+    <Content Include="assets\img\manual.png" />
+    <Content Include="assets\img\manual_hover.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
