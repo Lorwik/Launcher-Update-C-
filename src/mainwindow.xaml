@@ -101,7 +101,7 @@
                 VerticalAlignment="Top" Width="16" Height="16" Margin="579,27,0,0"
                 RenderTransformOrigin="0.206,0.875" BorderBrush="{x:Null}" Foreground="{x:Null}">
                     <Control.Background>
-                        <ImageBrush ImageSource="../img/fermer.png" Stretch="Uniform"/>
+                        <ImageBrush ImageSource="../assets/img/fermer.png" Stretch="Uniform"/>
                     </Control.Background>
                     <Control.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
