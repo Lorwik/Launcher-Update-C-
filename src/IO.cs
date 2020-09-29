@@ -8,27 +8,11 @@ namespace Launcher.src
 {
     class IO
     {
-        public bool ActualizacionPendiente;
-        public bool Actualizando;
-
+        public bool Actualizando = false;
         public int ArchivosDesactualizados = 0;
+        public int ArchivoActual = 0;
 
         private static string VERSIONFILE_PATH = Directory.GetCurrentDirectory() + "\\Init\\VersionInfo2.json";
-
-        /**
-         * Calcula el checksum MD5
-         */
-        public static string checkMD5(string filename)
-        {
-            using (var md5 = MD5.Create())
-            {
-                using (var stream = System.IO.File.OpenRead(filename))
-                {
-                    var hash = md5.ComputeHash(stream);
-                    return BitConverter.ToString(hash).Replace("-", "");
-                }
-            }
-        }
 
         public static VersionInformation Get_LocalVersion()
         {
@@ -53,6 +37,21 @@ namespace Launcher.src
             }
 
             return versionLocal;
+        }
+
+        /**
+         * Calcula el checksum MD5
+         */
+        public static string checkMD5(string filename)
+        {
+            using (var md5 = MD5.Create())
+            {
+                using (var stream = File.OpenRead(Directory.GetCurrentDirectory() + filename))
+                {
+                    var hash = md5.ComputeHash(stream);
+                    return BitConverter.ToString(hash).Replace("-", "");
+                }
+            }
         }
     }
 }

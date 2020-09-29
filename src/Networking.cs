@@ -3,15 +3,19 @@ using System.IO;
 using System.Windows;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using System.ComponentModel;
+using System;
 
 namespace Launcher.src
 {
     class Networking
     {
+        public static string HOST = "https://winterao.com.ar/update/cliente/";
+        private readonly string VERSIONFILE_URI = HOST + "VersionInfo2.json";
+        public VersionInformation versionRemota;
+
         private static WebClient webClient = new WebClient();
         public List<string> fileQueue = new List<string>();
-
-        private static readonly string VERSIONFILE_URI = "https://winterao.com.ar/update/cliente/VersionInfo2.json";
 
         /**
          * Comprueba la ultima version disponible
@@ -19,26 +23,37 @@ namespace Launcher.src
         public List<string> CheckOutdatedFiles()
         {
             VersionInformation versionLocal = IO.Get_LocalVersion();
-            VersionInformation versionRemota = Get_RemoteVersion();
+            versionRemota = Get_RemoteVersion();
 
-            for(var i = 0; i < versionRemota.Files.Count; i++)
+            // OFF-TOPIC: Creo las carpetas necesarias para descargar las cosas.
+            for (int j = 0; j < versionRemota.Folders.Count; j++) {
+                string currentFolder = Directory.GetCurrentDirectory() + versionRemota.Folders[j];
+                
+                if (!Directory.Exists(currentFolder))
+                {
+                    Directory.CreateDirectory(currentFolder);
+                }
+            }
+
+            // Itero la lista de archivos del servidor y lo comparo con lo que tengo en local.
+            for(int i = 0; i < versionRemota.Files.Count; i++)
             {
-                string localFileVersion = Directory.GetCurrentDirectory() + versionLocal.Files[i].name;
+                string localFile = versionLocal.Files[i].name;
 
                 // Si existe el archivo, comparamos el MD5..
-                if (File.Exists(localFileVersion))
+                if (File.Exists(localFile))
                 {
                     // Si NO coinciden los hashes, ...
-                    if (IO.checkMD5(localFileVersion) != versionRemota.Files[i].checksum)
+                    if (IO.checkMD5(localFile) != versionRemota.Files[i].checksum)
                     {
                         // ... lo agrego a la lista de archivos a descargar.
-                        fileQueue.Add(versionLocal.Files[i].name);
+                        fileQueue.Add(localFile);
                     }
                 }
                 else // Si existe el archivo, ...
                 {
                     // ... lo agrego a la lista de archivos a descargar.
-                    fileQueue.Add(versionLocal.Files[i].name);
+                    fileQueue.Add(localFile);
                 }
             }
 
@@ -61,7 +76,7 @@ namespace Launcher.src
             if (response == null)
             {
                 MessageBox.Show("Hemos recibido una respuesta vacía del servidor. Contacta con un administrador :'(");
-                return null;
+                Environment.Exit(0);
             }
 
             // Serializo en un POJO lo que recibí.
