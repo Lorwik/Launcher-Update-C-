@@ -1,9 +1,10 @@
-﻿using System.Net;
-using System.IO;
-using System.Windows;
-using System.Collections.Generic;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Threading.Tasks;
+using System.Windows;
 
 namespace Launcher.src
 {
@@ -16,7 +17,7 @@ namespace Launcher.src
         public VersionInformation versionRemota; // Acá como objeto de-serializado.
         public string versionRemotaString;      // Acá como texto plano.
 
-        private static WebClient webClient = new WebClient();
+        public TaskCompletionSource<bool> downloadQueue;
         public List<string> fileQueue = new List<string>();
 
         /**
@@ -33,15 +34,16 @@ namespace Launcher.src
             // Si no existe VersionInfo.json, lo descargamos!
             if (!File.Exists(IO.VERSIONFILE_PATH))
             {
-                File.WriteAllText(IO.VERSIONFILE_PATH, versionRemotaString);
+                IO.SaveLatestVersionInfo(versionRemotaString);
             }
 
             VersionInformation versionLocal = IO.Get_LocalVersion();
 
             // OFF-TOPIC: Creo las carpetas necesarias para descargar las cosas.
-            for (var j = 0; j < versionRemota.Folders.Count; j++) {
+            for (var j = 0; j < versionRemota.Folders.Count; j++)
+            {
                 string currentFolder = Directory.GetCurrentDirectory() + versionRemota.Folders[j];
-                
+
                 if (!Directory.Exists(currentFolder))
                 {
                     Directory.CreateDirectory(currentFolder);
@@ -49,7 +51,7 @@ namespace Launcher.src
             }
 
             // Itero la lista de archivos del servidor y lo comparo con lo que tengo en local.
-            for(var i = 0; i < versionRemota.Files.Count; i++)
+            for (var i = 0; i < versionRemota.Files.Count; i++)
             {
                 string localFile = versionLocal.Files[i].name;
 
@@ -79,11 +81,17 @@ namespace Launcher.src
         public VersionInformation Get_RemoteVersion()
         {
             // Envio un GET al servidor con el JSON de el archivo de versionado.
-            try {
+            WebClient webClient = new WebClient();
+            try
+            {
                 versionRemotaString = webClient.DownloadString(VERSIONFILE_URI);
-            } catch (WebException error) {
+            }
+            catch (WebException error)
+            {
                 MessageBox.Show(error.Message);
-            } finally {
+            }
+            finally
+            {
                 webClient.Dispose();
             }
 
@@ -94,12 +102,14 @@ namespace Launcher.src
                 Environment.Exit(0);
             }
 
-            // Serializo en un POJO lo que recibí.
             // Deserializamos el Version.json remoto
             VersionInformation versionRemota = null;
-            try {
+            try
+            {
                 versionRemota = JsonConvert.DeserializeObject<VersionInformation>(versionRemotaString);
-            } catch (JsonException) {
+            }
+            catch (JsonException)
+            {
                 MessageBox.Show("Error al de-serializar: El Version.json del servidor tiene un formato inválido.");
             }
 

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Security.Cryptography;
-using Newtonsoft.Json;
 using System.Windows;
 
 namespace Launcher.src
@@ -19,20 +19,28 @@ namespace Launcher.src
             // Leemos el VersionIndo.json local
             StreamReader localStreamReader = null;
             string localFile = null;
-            try {
+            try
+            {
                 localStreamReader = new StreamReader(VERSIONFILE_PATH);
                 localFile = localStreamReader.ReadToEnd();
-            } catch (Exception ex) {
+            }
+            catch (Exception ex)
+            {
                 MessageBox.Show(ex.Message);
-            } finally {
+            }
+            finally
+            {
                 localStreamReader.Close();
             }
 
             // Deserializamos el Version.json local
             VersionInformation versionLocal = null;
-            try {
+            try
+            {
                 versionLocal = JsonConvert.DeserializeObject<VersionInformation>(localFile);
-            } catch (JsonException) {
+            }
+            catch (JsonException)
+            {
                 MessageBox.Show("Error al de-serializar: El Version.json tiene un formato inválido.");
             }
 
@@ -57,7 +65,7 @@ namespace Launcher.src
         /**
          * Guarda la ultima version del VersionInfo.json una vez que terminó de actualizarse todo.
          */
-        public void SaveLatestVersionInfo(string versionInfo)
+        public static void SaveLatestVersionInfo(string versionInfo)
         {
             File.WriteAllText(VERSIONFILE_PATH, versionInfo);
         }

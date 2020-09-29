@@ -1,16 +1,17 @@
 ﻿// AO Libre C# Launcher by Pablo M. Duval (Discord: Abusivo#1215)
 // Este launcher y todo su contenido incluyendo sus códigos son de uso público y gratuito.
 
+using Launcher.src;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
-using Launcher.src;
 
 namespace Launcher
 {
@@ -19,7 +20,7 @@ namespace Launcher
 
         //ATRIBUTOS
         private readonly IO local = new IO();
-        private readonly Networking networking =  new Networking();
+        private readonly Networking networking = new Networking();
 
         //METODOS
 
@@ -68,8 +69,40 @@ namespace Launcher
                 lblDow.Content = "Descargando " + networking.versionRemota.Files[local.ArchivoActual].name + ". Archivo " + local.ArchivoActual + " de " + local.ArchivosDesactualizados;
 
                 // Comenzamos la descarga
-                Descargar(networking.fileQueue[local.ArchivoActual]);
+                DescargarActualizaciones();
             }
+        }
+
+        /**
+         * Comienza a descargar los archivos desactualizados.
+         */
+        private async void DescargarActualizaciones()
+        {
+            WebClient client = new WebClient();
+            client = new WebClient();
+            client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(UpdateProgressChange);
+            client.DownloadFileCompleted += new AsyncCompletedEventHandler(UpdateDone);
+            await IniciarDescarga(client);
+        }
+
+        /**
+         * ADVERTENCIA: Esto es parte de el método DescargarActualizaciones()
+         *              NO EJECUTAR DIRECTAMENTE, HACERLO A TRAVÉS DE ESE METODO!
+         *              
+         * Fuente: https://stackoverflow.com/questions/39552021/multiple-asynchronous-download-with-progress-bar
+         */
+        private async Task IniciarDescarga(WebClient webClient)
+        {
+            //files contains all URL links
+            foreach (string file in networking.fileQueue)
+            {
+                networking.downloadQueue = new TaskCompletionSource<bool>();
+
+                webClient.DownloadFileAsync(new Uri(Networking.HOST + file), Directory.GetCurrentDirectory() + file);
+
+                await networking.downloadQueue.Task;
+            }
+            networking.downloadQueue = null;
         }
 
         /**
@@ -87,47 +120,24 @@ namespace Launcher
          */
         private void UpdateDone(object sender, AsyncCompletedEventArgs e)
         {
-            local.ArchivoActual++;
+            // Decimos que ya terminó esta descarga
+            networking.downloadQueue.SetResult(true);
 
-            if (local.ArchivosDesactualizados > 0) Actualizar();
-
-            // Si terminamos de desactualizar, re-habilitamos el boton de Jugar
-            if (local.ArchivoActual == local.ArchivosDesactualizados)
+            if (networking.fileQueue.Count == local.ArchivoActual)
             {
-                local.Actualizando = false;
-                local.ArchivosDesactualizados = 0;
-
-                // y guardo, al final de todo, el VersionInfo.json actualizado.
-                local.SaveLatestVersionInfo(networking.versionRemotaString);
+                MessageBox.Show("Se termino la descarga de todo!");
+                IO.SaveLatestVersionInfo(networking.versionRemotaString);
                 return;
             }
-        }
 
-        /**
-         * Descarga la actualizacion
-         */
-        private void Descargar(string Url)
-        {
-            WebClient webClient = null;
-            try
+            if (local.ArchivoActual < networking.versionRemota.Files.Count)
             {
-                webClient = new WebClient();
-                webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(UpdateProgressChange);
-                webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(UpdateDone);
-                webClient.DownloadFileAsync(new Uri(Networking.HOST + Url), Directory.GetCurrentDirectory() + Url);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                //call this if exception occurs or not
-                //in this example, dispose the WebClient
-                webClient.Dispose();
+                local.ArchivoActual++;
+
+                lblDow.Content = "Descargando " + networking.versionRemota.Files[local.ArchivoActual].name + 
+                                 ". Archivo " + local.ArchivoActual + " de " + networking.fileQueue.Count;
             }
         }
-
 
         /**
          * Boton para ir a la web
@@ -188,7 +198,7 @@ namespace Launcher
                 {
                     MessageBox.Show(ex.Message);
                 }
-            } 
+            }
             else
             {
                 MessageBox.Show("No se pudo abrir el ejecutable del juego, al parecer no existe!");
