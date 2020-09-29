@@ -1,130 +1,29 @@
-C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\mainwindow.g.cs
-C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\Uplauncher_MarkupCompile.cache
-C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\Uplauncher_MarkupCompile.lref
-C:\Users\Pablo\Desktop\launcher\Launcher\bin\Debug\Uplauncher.exe
-C:\Users\Pablo\Desktop\launcher\Launcher\bin\Debug\Uplauncher.pdb
-C:\Users\Pablo\Desktop\launcher\Launcher\bin\Debug\DotNetZip.dll
-C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\mainwindow.baml
-C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\Uplauncher.g.resources
-C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\Uplauncher.Properties.Resources.resources
-C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\Launcher.csproj.GenerateResource.cache
-C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\Launcher.csproj.CoreCompileInputs.cache
-C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\Launcher.csproj.CopyComplete
-C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\Uplauncher.exe
-C:\Users\Pablo\Desktop\launcher\Launcher\obj\Debug\Uplauncher.pdb
-C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\bin\Debug\DotNetZip.dll
-C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\mainwindow.g.cs
-C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\mainwindow.baml
-C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\Launcher.csproj.GenerateResource.cache
-C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\Launcher.csproj.CopyComplete
-C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\bin\Debug\AO Libre Launcher.exe
-C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\bin\Debug\AO Libre Launcher.pdb
-C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\AO Libre Launcher_MarkupCompile.cache
-C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\AO Libre Launcher_MarkupCompile.lref
-C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\AO Libre Launcher.g.resources
-C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\AOLibreLauncher.Properties.Resources.resources
-C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\AO Libre Launcher.exe
-C:\Users\Pablo\Desktop\Launcher\launcher\AoLibre Launcher\obj\Debug\AO Libre Launcher.pdb
-D:\Proyectos\WinterAO\Launcher\bin\Debug\DotNetZip.dll
-D:\Proyectos\WinterAO\Launcher\obj\Debug\Launcher.csprojAssemblyReference.cache
-D:\Proyectos\WinterAO\Launcher\obj\Debug\mainwindow.g.cs
-D:\Proyectos\WinterAO\Launcher\obj\Debug\mainwindow.baml
-D:\Proyectos\WinterAO\Launcher\obj\Debug\Launcher.csproj.GenerateResource.cache
-D:\Proyectos\WinterAO\Launcher\obj\Debug\Launcher.csproj.CoreCompileInputs.cache
-D:\Proyectos\WinterAO\Launcher\obj\Debug\Launcher.csproj.CopyComplete
-D:\Proyectos\WinterAO\Launcher\bin\Debug\WinterAO Launcher.exe
-D:\Proyectos\WinterAO\Launcher\bin\Debug\WinterAO Launcher.pdb
-D:\Proyectos\WinterAO\Launcher\obj\Debug\WinterAO Launcher_MarkupCompile.cache
-D:\Proyectos\WinterAO\Launcher\obj\Debug\WinterAO Launcher_MarkupCompile.lref
-D:\Proyectos\WinterAO\Launcher\obj\Debug\WinterAO Launcher.g.resources
-D:\Proyectos\WinterAO\Launcher\obj\Debug\WinterAOLauncher.Properties.Resources.resources
-D:\Proyectos\WinterAO\Launcher\obj\Debug\WinterAO Launcher.exe
-D:\Proyectos\WinterAO\Launcher\obj\Debug\WinterAO Launcher.pdb
-D:\Proyectos\WinterAO\Launcher\obj\Debug\WinterAO Launcher_Content.g.cs
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\WinterAO Launcher.exe.config
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\WinterAO Launcher.exe
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\WinterAO Launcher.pdb
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\DotNetZip.dll
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\System.Buffers.dll
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\System.Memory.dll
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\System.Numerics.Vectors.dll
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\System.Text.Encodings.Web.dll
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\System.Text.Json.dll
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\System.Threading.Tasks.Extensions.dll
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\System.ValueTuple.dll
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\System.Buffers.xml
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\System.Memory.xml
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\System.Numerics.Vectors.xml
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\System.Text.Encodings.Web.xml
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\System.Text.Json.xml
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\System.Threading.Tasks.Extensions.xml
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\bin\Debug\System.ValueTuple.xml
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\obj\Debug\Launcher.csprojAssemblyReference.cache
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\obj\Debug\mainwindow.g.cs
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\obj\Debug\WinterAO Launcher_Content.g.cs
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\obj\Debug\WinterAO Launcher_MarkupCompile.cache
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\obj\Debug\WinterAO Launcher_MarkupCompile.lref
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\obj\Debug\mainwindow.baml
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\obj\Debug\WinterAO Launcher.g.resources
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\obj\Debug\WinterAOLauncher.Properties.Resources.resources
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\obj\Debug\Launcher.csproj.GenerateResource.cache
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\obj\Debug\Launcher.csproj.CoreCompileInputs.cache
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\obj\Debug\Launcher.csproj.CopyComplete
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\obj\Debug\WinterAO Launcher.exe
-C:\Users\Jopi\Source\Repos\Lorwik\WinterAOLauncher\obj\Debug\WinterAO Launcher.pdb
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\DotNetZip.dll
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\System.Buffers.dll
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\System.Memory.dll
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\System.Numerics.Vectors.dll
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\System.Text.Encodings.Web.dll
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\System.Text.Json.dll
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\System.Threading.Tasks.Extensions.dll
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\System.ValueTuple.dll
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\System.Buffers.xml
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\System.Memory.xml
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\System.Numerics.Vectors.xml
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\System.Text.Encodings.Web.xml
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\System.Text.Json.xml
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\System.Threading.Tasks.Extensions.xml
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\System.ValueTuple.xml
-C:\Users\Jopi\Desktop\WinterAOLauncher\obj\Debug\Launcher.csprojAssemblyReference.cache
-C:\Users\Jopi\Desktop\WinterAOLauncher\obj\Debug\mainwindow.g.cs
-C:\Users\Jopi\Desktop\WinterAOLauncher\obj\Debug\mainwindow.baml
-C:\Users\Jopi\Desktop\WinterAOLauncher\obj\Debug\WinterAOLauncher.Properties.Resources.resources
-C:\Users\Jopi\Desktop\WinterAOLauncher\obj\Debug\Launcher.csproj.GenerateResource.cache
-C:\Users\Jopi\Desktop\WinterAOLauncher\obj\Debug\Launcher.csproj.CoreCompileInputs.cache
-C:\Users\Jopi\Desktop\WinterAOLauncher\obj\Debug\Launcher.csproj.CopyComplete
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\WinterAO-Launcher.exe.config
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\WinterAO-Launcher.exe
-C:\Users\Jopi\Desktop\WinterAOLauncher\bin\Debug\WinterAO-Launcher.pdb
-C:\Users\Jopi\Desktop\WinterAOLauncher\obj\Debug\WinterAO-Launcher_Content.g.cs
-C:\Users\Jopi\Desktop\WinterAOLauncher\obj\Debug\WinterAO-Launcher_MarkupCompile.cache
-C:\Users\Jopi\Desktop\WinterAOLauncher\obj\Debug\WinterAO-Launcher_MarkupCompile.lref
-C:\Users\Jopi\Desktop\WinterAOLauncher\obj\Debug\WinterAO-Launcher.g.resources
-C:\Users\Jopi\Desktop\WinterAOLauncher\obj\Debug\WinterAO-Launcher.exe
-C:\Users\Jopi\Desktop\WinterAOLauncher\obj\Debug\WinterAO-Launcher.pdb
-C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\Launcher.csprojAssemblyReference.cache
-C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\src\mainwindow.g.cs
-C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\src\mainwindow.baml
-C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\Launcher.csproj.GenerateResource.cache
-C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\Launcher.csproj.CoreCompileInputs.cache
-C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\Launcher.csproj.CopyComplete
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\src\MainWindow.baml
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\src\MainWindow.g.cs
 C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\Launcher_Content.g.cs
 C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\Launcher_MarkupCompile.cache
 C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\Launcher.g.resources
 C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\Launcher.Properties.Resources.resources
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\Launcher.csproj.GenerateResource.cache
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\Launcher.csproj.CoreCompileInputs.cache
 C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\Launcher.exe.config
 C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\Launcher.exe
 C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\Launcher.pdb
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\Microsoft.Threading.Tasks.dll
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.dll
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\Microsoft.Threading.Tasks.Extensions.dll
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\Newtonsoft.Json.dll
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\System.IO.dll
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\System.Runtime.dll
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\System.Threading.Tasks.dll
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\Microsoft.Threading.Tasks.xml
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\Microsoft.Threading.Tasks.Extensions.xml
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\Microsoft.Threading.Tasks.Extensions.Desktop.xml
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\Newtonsoft.Json.xml
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\System.IO.xml
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\System.Runtime.xml
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\System.Threading.Tasks.xml
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\Launcher.csprojAssemblyReference.cache
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\Launcher.csproj.CopyComplete
 C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\Launcher.exe
 C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\Launcher.pdb
-C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\Newtonsoft.Json.dll
-C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\Newtonsoft.Json.xml
