@@ -12,7 +12,7 @@ namespace Launcher.src
         public int ArchivosDesactualizados = 0;
         public int ArchivoActual = 0;
 
-        private static string VERSIONFILE_PATH = Directory.GetCurrentDirectory() + "\\Init\\VersionInfo2.json";
+        public static string VERSIONFILE_PATH = Directory.GetCurrentDirectory() + "\\Init\\VersionInfo2.json";
 
         public static VersionInformation Get_LocalVersion()
         {
@@ -52,6 +52,14 @@ namespace Launcher.src
                     return BitConverter.ToString(hash).Replace("-", "");
                 }
             }
+        }
+
+        /**
+         * Guarda la ultima version del VersionInfo.json una vez que terminó de actualizarse todo.
+         */
+        public void SaveLatestVersionInfo(string versionInfo)
+        {
+            File.WriteAllText(VERSIONFILE_PATH, versionInfo);
         }
     }
 }

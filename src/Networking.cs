@@ -3,7 +3,6 @@ using System.IO;
 using System.Windows;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using System.ComponentModel;
 using System;
 
 namespace Launcher.src
@@ -12,7 +11,10 @@ namespace Launcher.src
     {
         public static string HOST = "https://winterao.com.ar/update/cliente/";
         private readonly string VERSIONFILE_URI = HOST + "VersionInfo2.json";
-        public VersionInformation versionRemota;
+
+        // Acá está la info. del VersionInfo.json
+        public VersionInformation versionRemota; // Acá como objeto de-serializado.
+        public string versionRemotaString;      // Acá como texto plano.
 
         private static WebClient webClient = new WebClient();
         public List<string> fileQueue = new List<string>();
@@ -22,11 +24,22 @@ namespace Launcher.src
          */
         public List<string> CheckOutdatedFiles()
         {
+            // Obtenemos los datos necesarios del servidor.
+            VersionInformation versionRemota = Get_RemoteVersion();
+
+            // Creo las carpetas necesarias para descargar las cosas.
+            CrearCarpetasRequeridas(versionRemota);
+
+            // Si no existe VersionInfo.json, lo descargamos!
+            if (!File.Exists(IO.VERSIONFILE_PATH))
+            {
+                File.WriteAllText(IO.VERSIONFILE_PATH, versionRemotaString);
+            }
+
             VersionInformation versionLocal = IO.Get_LocalVersion();
-            versionRemota = Get_RemoteVersion();
 
             // OFF-TOPIC: Creo las carpetas necesarias para descargar las cosas.
-            for (int j = 0; j < versionRemota.Folders.Count; j++) {
+            for (var j = 0; j < versionRemota.Folders.Count; j++) {
                 string currentFolder = Directory.GetCurrentDirectory() + versionRemota.Folders[j];
                 
                 if (!Directory.Exists(currentFolder))
@@ -36,7 +49,7 @@ namespace Launcher.src
             }
 
             // Itero la lista de archivos del servidor y lo comparo con lo que tengo en local.
-            for(int i = 0; i < versionRemota.Files.Count; i++)
+            for(var i = 0; i < versionRemota.Files.Count; i++)
             {
                 string localFile = versionLocal.Files[i].name;
 
@@ -57,15 +70,17 @@ namespace Launcher.src
                 }
             }
 
+            // Guardo en un field el objeto de-serializado de la info. remota.
+            this.versionRemota = versionRemota;
+
             return fileQueue;
         }
 
         public VersionInformation Get_RemoteVersion()
         {
             // Envio un GET al servidor con el JSON de el archivo de versionado.
-            string response = null;
             try {
-                response = webClient.DownloadString(VERSIONFILE_URI);
+                versionRemotaString = webClient.DownloadString(VERSIONFILE_URI);
             } catch (WebException error) {
                 MessageBox.Show(error.Message);
             } finally {
@@ -73,7 +88,7 @@ namespace Launcher.src
             }
 
             // Me fijo que la response NO ESTÉ vacía.
-            if (response == null)
+            if (versionRemotaString == null)
             {
                 MessageBox.Show("Hemos recibido una respuesta vacía del servidor. Contacta con un administrador :'(");
                 Environment.Exit(0);
@@ -83,12 +98,25 @@ namespace Launcher.src
             // Deserializamos el Version.json remoto
             VersionInformation versionRemota = null;
             try {
-                versionRemota = JsonConvert.DeserializeObject<VersionInformation>(response);
+                versionRemota = JsonConvert.DeserializeObject<VersionInformation>(versionRemotaString);
             } catch (JsonException) {
                 MessageBox.Show("Error al de-serializar: El Version.json del servidor tiene un formato inválido.");
             }
 
             return versionRemota;
+        }
+
+        private void CrearCarpetasRequeridas(VersionInformation versionRemota)
+        {
+            for (var j = 0; j < versionRemota.Folders.Count; j++)
+            {
+                string currentFolder = Directory.GetCurrentDirectory() + versionRemota.Folders[j];
+
+                if (!Directory.Exists(currentFolder))
+                {
+                    Directory.CreateDirectory(currentFolder);
+                }
+            }
         }
     }
 }

@@ -65,7 +65,7 @@ namespace Launcher
                 local.Actualizando = true;
 
                 // Anunciamos el numero de archivo que estamos descargando
-                lblDow.Content = "Descargando actualizacion " + local.ArchivoActual + " de " + local.ArchivosDesactualizados;
+                lblDow.Content = "Descargando " + networking.versionRemota.Files[local.ArchivoActual].name + ". Archivo " + local.ArchivoActual + " de " + local.ArchivosDesactualizados;
 
                 // Comenzamos la descarga
                 Descargar(networking.fileQueue[local.ArchivoActual]);
@@ -88,43 +88,17 @@ namespace Launcher
         private void UpdateDone(object sender, AsyncCompletedEventArgs e)
         {
             local.ArchivoActual++;
-            // Volvemos a comprobar el MD5 del archivo descargado por si se descargo corrupto.
-            string checksumArchivoLocal = IO.checkMD5(networking.fileQueue[local.ArchivoActual]);
-            string checksumArchivoRemoto = networking.versionRemota.Files[local.ArchivoActual].checksum;
 
-            // En caso de que sean diferentes...
-            if (checksumArchivoLocal != checksumArchivoRemoto)
-            {
-                string error = "El MD5 de esta actualización NO COINCIDE!" + "\r\n" +
-                                "Archivo: " + networking.versionRemota.Files[local.ArchivoActual].name + "\r\n" +
-                                "MD5 Local:" + checksumArchivoLocal + "\r\n" +
-                                "MD5 Remoto: " + checksumArchivoRemoto + "\r\n\r\n" +
-                                "¿Desea intentar descargar la actualización una vez mas?";
-
-                MessageBoxResult badUpdate = MessageBox.Show(error, "Descarga Corrupta", MessageBoxButton.YesNo);
-
-                // Le preguntamos si quiere descargar la actualización 1 vez mas.
-                if (badUpdate == MessageBoxResult.Yes)
-                {
-                    // Borramos la actualización corrupta.
-                    File.Delete(Directory.GetCurrentDirectory() + networking.versionRemota.Files[local.ArchivoActual].name);
-
-                    // Salimos del método.
-                    Actualizar();
-                    return;
-                }
-                else
-                {
-                    // Si elige no volver a descargar la actualización, cerramos el launcher.
-                    Close();
-                }
-
-            }
+            if (local.ArchivosDesactualizados > 0) Actualizar();
 
             // Si terminamos de desactualizar, re-habilitamos el boton de Jugar
             if (local.ArchivoActual == local.ArchivosDesactualizados)
             {
                 local.Actualizando = false;
+                local.ArchivosDesactualizados = 0;
+
+                // y guardo, al final de todo, el VersionInfo.json actualizado.
+                local.SaveLatestVersionInfo(networking.versionRemotaString);
                 return;
             }
         }
