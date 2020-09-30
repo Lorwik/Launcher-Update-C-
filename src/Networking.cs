@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace Launcher.src
@@ -17,7 +16,6 @@ namespace Launcher.src
         public VersionInformation versionRemota; // Acá como objeto de-serializado.
         public string versionRemotaString;      // Acá como texto plano.
 
-        public TaskCompletionSource<bool> downloadQueue;
         public List<string> fileQueue = new List<string>();
 
         /**
@@ -28,47 +26,36 @@ namespace Launcher.src
             // Obtenemos los datos necesarios del servidor.
             VersionInformation versionRemota = Get_RemoteVersion();
 
-            // Creo las carpetas necesarias para descargar las cosas.
-            CrearCarpetasRequeridas(versionRemota);
-
-            // Si no existe VersionInfo.json, lo descargamos!
+            // Si no existe VersionInfo.json en la carpeta Init, ...
+            VersionInformation versionLocal;
             if (!File.Exists(IO.VERSIONFILE_PATH))
             {
-                IO.SaveLatestVersionInfo(versionRemotaString);
+                // ... parseamos el string que obtuvimos del servidor.
+                versionLocal = IO.Get_LocalVersion(versionRemotaString);
             }
-
-            VersionInformation versionLocal = IO.Get_LocalVersion();
-
-            // OFF-TOPIC: Creo las carpetas necesarias para descargar las cosas.
-            for (var j = 0; j < versionRemota.Folders.Count; j++)
+            else // Si existe, ...
             {
-                string currentFolder = Directory.GetCurrentDirectory() + versionRemota.Folders[j];
-
-                if (!Directory.Exists(currentFolder))
-                {
-                    Directory.CreateDirectory(currentFolder);
-                }
+                // ... buscamos y parseamos el que está en la carpeta Init.
+                versionLocal = IO.Get_LocalVersion(null);
             }
 
             // Itero la lista de archivos del servidor y lo comparo con lo que tengo en local.
-            for (var i = 0; i < versionRemota.Files.Count; i++)
+            for (int i = 0; i < versionRemota.Files.Count; i++)
             {
-                string localFile = versionLocal.Files[i].name;
-
                 // Si existe el archivo, comparamos el MD5..
-                if (File.Exists(localFile))
+                if (File.Exists(Directory.GetCurrentDirectory() + versionRemota.Files[i].name))
                 {
                     // Si NO coinciden los hashes, ...
-                    if (IO.checkMD5(localFile) != versionRemota.Files[i].checksum)
+                    if (IO.checkMD5(versionLocal.Files[i].name) != versionRemota.Files[i].checksum)
                     {
                         // ... lo agrego a la lista de archivos a descargar.
-                        fileQueue.Add(localFile);
+                        fileQueue.Add(versionRemota.Files[i].name);
                     }
                 }
                 else // Si existe el archivo, ...
                 {
                     // ... lo agrego a la lista de archivos a descargar.
-                    fileQueue.Add(localFile);
+                    fileQueue.Add(versionRemota.Files[i].name);
                 }
             }
 
@@ -116,7 +103,7 @@ namespace Launcher.src
             return versionRemota;
         }
 
-        private void CrearCarpetasRequeridas(VersionInformation versionRemota)
+        public void CrearCarpetasRequeridas()
         {
             for (var j = 0; j < versionRemota.Folders.Count; j++)
             {

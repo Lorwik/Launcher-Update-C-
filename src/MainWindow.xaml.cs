@@ -7,7 +7,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Threading.Tasks;
+
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Markup;
@@ -69,40 +69,22 @@ namespace Launcher
                 lblDow.Content = "Descargando " + networking.versionRemota.Files[local.ArchivoActual].name + ". Archivo " + local.ArchivoActual + " de " + local.ArchivosDesactualizados;
 
                 // Comenzamos la descarga
-                DescargarActualizaciones();
+                Descargar(networking.fileQueue[local.ArchivoActual]);
             }
         }
 
         /**
          * Comienza a descargar los archivos desactualizados.
          */
-        private async void DescargarActualizaciones()
+        private void Descargar(string URL)
         {
+            // Creo las carpetas necesarias para descargar las cosas.
+            networking.CrearCarpetasRequeridas();
+
             WebClient client = new WebClient();
-            client = new WebClient();
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(UpdateProgressChange);
             client.DownloadFileCompleted += new AsyncCompletedEventHandler(UpdateDone);
-            await IniciarDescarga(client);
-        }
-
-        /**
-         * ADVERTENCIA: Esto es parte de el método DescargarActualizaciones()
-         *              NO EJECUTAR DIRECTAMENTE, HACERLO A TRAVÉS DE ESE METODO!
-         *              
-         * Fuente: https://stackoverflow.com/questions/39552021/multiple-asynchronous-download-with-progress-bar
-         */
-        private async Task IniciarDescarga(WebClient webClient)
-        {
-            //files contains all URL links
-            foreach (string file in networking.fileQueue)
-            {
-                networking.downloadQueue = new TaskCompletionSource<bool>();
-
-                webClient.DownloadFileAsync(new Uri(Networking.HOST + file), Directory.GetCurrentDirectory() + file);
-
-                await networking.downloadQueue.Task;
-            }
-            networking.downloadQueue = null;
+            client.DownloadFileAsync(new Uri(Networking.HOST + URL), Directory.GetCurrentDirectory() + URL);
         }
 
         /**
@@ -120,22 +102,21 @@ namespace Launcher
          */
         private void UpdateDone(object sender, AsyncCompletedEventArgs e)
         {
-            // Decimos que ya terminó esta descarga
-            networking.downloadQueue.SetResult(true);
+            if (local.ArchivoActual < networking.fileQueue.Count - 1)
+            {
+                local.ArchivoActual++;
 
-            if (networking.fileQueue.Count == local.ArchivoActual)
+                lblDow.Content = "Descargando " + networking.fileQueue[local.ArchivoActual] +
+                                 ". Archivo " + local.ArchivoActual + " de " + networking.fileQueue.Count;
+
+                Descargar(networking.fileQueue[local.ArchivoActual]);
+
+            }
+            else
             {
                 MessageBox.Show("Se termino la descarga de todo!");
                 IO.SaveLatestVersionInfo(networking.versionRemotaString);
                 return;
-            }
-
-            if (local.ArchivoActual < networking.versionRemota.Files.Count)
-            {
-                local.ArchivoActual++;
-
-                lblDow.Content = "Descargando " + networking.versionRemota.Files[local.ArchivoActual].name + 
-                                 ". Archivo " + local.ArchivoActual + " de " + networking.fileQueue.Count;
             }
         }
 

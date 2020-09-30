@@ -14,30 +14,40 @@ namespace Launcher.src
 
         public static string VERSIONFILE_PATH = Directory.GetCurrentDirectory() + "\\Init\\VersionInfo2.json";
 
-        public static VersionInformation Get_LocalVersion()
+#nullable enable
+        public static VersionInformation Get_LocalVersion(string? customVersionData)
         {
-            // Leemos el VersionIndo.json local
-            StreamReader localStreamReader = null;
-            string localFile = null;
-            try
+
+            // Acá guardo el string que obtengo ya sea del parámetro o del archivo en la carpeta Init.
+#pragma warning disable CS8600 // Se va a convertir un literal nulo o un posible valor nulo en un tipo que no acepta valores NULL
+            string data = customVersionData;
+#pragma warning restore CS8600 // Se va a convertir un literal nulo o un posible valor nulo en un tipo que no acepta valores NULL
+
+            // Si no damos un string custom, lo leemos de init/VersionInfo.json
+            if (customVersionData == null)
             {
-                localStreamReader = new StreamReader(VERSIONFILE_PATH);
-                localFile = localStreamReader.ReadToEnd();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                localStreamReader.Close();
+#nullable disable
+                StreamReader localStreamReader = null;
+                try
+                {
+                    localStreamReader = new StreamReader(VERSIONFILE_PATH);
+                    data = localStreamReader.ReadToEnd();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+                finally
+                {
+                    localStreamReader.Close();
+                }
             }
 
             // Deserializamos el Version.json local
             VersionInformation versionLocal = null;
             try
             {
-                versionLocal = JsonConvert.DeserializeObject<VersionInformation>(localFile);
+                versionLocal = JsonConvert.DeserializeObject<VersionInformation>(data);
             }
             catch (JsonException)
             {
