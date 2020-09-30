@@ -9,3 +9,4 @@ C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\Launcher.csproj.CoreCompile
 C:\Users\jopio\Desktop\WinterAOLauncher-C-\bin\Debug\Launcher.exe.config
 C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\Launcher.exe
 C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\Launcher.pdb
+C:\Users\jopio\Desktop\WinterAOLauncher-C-\obj\Debug\Launcher.csprojAssemblyReference.cache

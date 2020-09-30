@@ -66,7 +66,7 @@ namespace Launcher
                 local.Actualizando = true;
 
                 // Anunciamos el numero de archivo que estamos descargando
-                lblDow.Content = "Descargando " + networking.versionRemota.Files[local.ArchivoActual].name + ". Archivo " + local.ArchivoActual + " de " + local.ArchivosDesactualizados - 1;
+                lblDow.Content = "Descargando " + networking.versionRemota.Files[local.ArchivoActual].name + ". Archivo " + local.ArchivoActual + " de " + (local.ArchivosDesactualizados - 1);
 
                 // Comenzamos la descarga
                 Descargar(networking.fileQueue[local.ArchivoActual]);
@@ -114,9 +114,16 @@ namespace Launcher
             }
             else
             {
-                MessageBox.Show("Se termino la descarga de todo!");
+                // Guardamos el VersionInfo.json actualizado. 
                 IO.SaveLatestVersionInfo(networking.versionRemotaString);
-                return;
+
+                // Limpiamos la cola de archivos para descargar.
+                networking.fileQueue.Clear();
+
+                // Le decimos al programa que ya NO estamos en medio de una actualizacion.
+                local.ArchivoActual = 0;
+                local.ArchivosDesactualizados = 0;
+                local.Actualizando = false;
             }
         }
 
@@ -160,7 +167,7 @@ namespace Launcher
             }
 
             // Abrimos el cliente.
-            string gameExecutable = Directory.GetCurrentDirectory() + "/WinterAO Resurrection.exe";
+            string gameExecutable = Directory.GetCurrentDirectory() + "/WinterAOResurrection.exe";
             if (File.Exists(gameExecutable))
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo();

@@ -12,6 +12,11 @@ namespace Launcher.src
         public static string HOST = "https://winterao.com.ar/update/cliente/";
         private readonly string VERSIONFILE_URI = HOST + "VersionInfo2.json";
 
+        private readonly List<string> EXCEPCIONES = new List<string>() { 
+            "/Init/Config.ini",
+            "/Init/BindKeys.bin"
+        };
+
         // Acá está la info. del VersionInfo.json
         public VersionInformation versionRemota; // Acá como objeto de-serializado.
         public string versionRemotaString;      // Acá como texto plano.
@@ -46,7 +51,8 @@ namespace Launcher.src
                 if (File.Exists(Directory.GetCurrentDirectory() + versionRemota.Files[i].name))
                 {
                     // Si NO coinciden los hashes, ...
-                    if (IO.checkMD5(versionLocal.Files[i].name) != versionRemota.Files[i].checksum)
+                    if (!EXCEPCIONES.Contains(versionRemota.Files[i].name) && 
+                        IO.checkMD5(versionLocal.Files[i].name) != versionRemota.Files[i].checksum)
                     {
                         // ... lo agrego a la lista de archivos a descargar.
                         fileQueue.Add(versionRemota.Files[i].name);
