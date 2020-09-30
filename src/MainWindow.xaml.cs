@@ -66,7 +66,7 @@ namespace Launcher
                 local.Actualizando = true;
 
                 // Anunciamos el numero de archivo que estamos descargando
-                lblDow.Content = "Descargando " + networking.versionRemota.Files[local.ArchivoActual].name + ". Archivo " + local.ArchivoActual + " de " + local.ArchivosDesactualizados;
+                lblDow.Content = "Descargando " + networking.versionRemota.Files[local.ArchivoActual].name + ". Archivo " + local.ArchivoActual + " de " + local.ArchivosDesactualizados - 1;
 
                 // Comenzamos la descarga
                 Descargar(networking.fileQueue[local.ArchivoActual]);
