@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Text.Json;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace Launcher.src
@@ -22,6 +23,7 @@ namespace Launcher.src
         public string versionRemotaString;      // Acá como texto plano.
 
         public List<string> fileQueue = new List<string>();
+        public TaskCompletionSource<bool> downloadQueue;
 
         /**
          * Comprueba la ultima version disponible
@@ -99,7 +101,7 @@ namespace Launcher.src
             VersionInformation versionRemota = null;
             try
             {
-                versionRemota = JsonConvert.DeserializeObject<VersionInformation>(versionRemotaString);
+                versionRemota = JsonSerializer.Deserialize<VersionInformation>(versionRemotaString);
             }
             catch (JsonException)
             {
@@ -111,15 +113,36 @@ namespace Launcher.src
 
         public void CrearCarpetasRequeridas()
         {
-            for (var j = 0; j < versionRemota.Folders.Count; j++)
+            foreach(string folder in versionRemota.Folders)
             {
-                string currentFolder = Directory.GetCurrentDirectory() + versionRemota.Folders[j];
+                string currentFolder = Directory.GetCurrentDirectory() + folder;
 
                 if (!Directory.Exists(currentFolder))
                 {
                     Directory.CreateDirectory(currentFolder);
                 }
             }
+        }
+
+
+        /**
+         * ADVERTENCIA: Esto es parte de el método DescargarActualizaciones() en MainWindow.xaml.cs
+         *              NO EJECUTAR DIRECTAMENTE, HACERLO A TRAVÉS DE ESE METODO!
+         *              
+         * Fuente: https://stackoverflow.com/questions/39552021/multiple-asynchronous-download-with-progress-bar
+         */
+        public async Task IniciarDescarga(WebClient webClient)
+        {
+            //files contains all URL links
+            foreach (string file in fileQueue)
+            {
+                downloadQueue = new TaskCompletionSource<bool>();
+
+                webClient.DownloadFileAsync(new Uri(HOST + file), Directory.GetCurrentDirectory() + file);
+
+                await downloadQueue.Task;
+            }
+            downloadQueue = null;
         }
     }
 }

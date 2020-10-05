@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text.Json;
 using System.Windows;
 
 namespace Launcher.src
@@ -47,7 +47,7 @@ namespace Launcher.src
             VersionInformation versionLocal = null;
             try
             {
-                versionLocal = JsonConvert.DeserializeObject<VersionInformation>(data);
+                versionLocal = JsonSerializer.Deserialize<VersionInformation>(data);
             }
             catch (JsonException)
             {

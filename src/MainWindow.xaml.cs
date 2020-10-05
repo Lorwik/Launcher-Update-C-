@@ -7,7 +7,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Markup;
@@ -19,6 +18,8 @@ namespace Launcher
     {
 
         //ATRIBUTOS
+        private static string URLWeb = "https://winterao.com.ar";
+
         private readonly IO local = new IO();
         private readonly Networking networking = new Networking();
 
@@ -45,12 +46,12 @@ namespace Launcher
             {
                 pbar.Value = 100.0;
                 lblDow.Content = "Actualizado";
-                lblDow.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#00D62D"));
+                lblDow.Foreground = new SolidColorBrush(Colors.Yellow);
             }
             else // Si el cliente no esta actualizado, lo notificamos
             {
                 lblDow.Content = "Tienes " + local.ArchivosDesactualizados + " archivos desactualizados...";
-                lblDow.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF0000"));
+                lblDow.Foreground = new SolidColorBrush(Colors.Red);
             }
         }
 
@@ -66,25 +67,26 @@ namespace Launcher
                 local.Actualizando = true;
 
                 // Anunciamos el numero de archivo que estamos descargando
-                lblDow.Content = "Descargando " + networking.versionRemota.Files[local.ArchivoActual].name + ". Archivo " + local.ArchivoActual + " de " + (local.ArchivosDesactualizados - 1);
+                lblDow.Content = "Descargando " + networking.fileQueue[local.ArchivoActual] + ". Archivo " + local.ArchivoActual + " de " + (networking.fileQueue.Count - 1);
+                lblDow.Foreground = new SolidColorBrush(Colors.White);
 
                 // Comenzamos la descarga
-                Descargar(networking.fileQueue[local.ArchivoActual]);
+                DescargarActualizaciones();
             }
         }
 
         /**
          * Comienza a descargar los archivos desactualizados.
          */
-        private void Descargar(string URL)
+        private async void DescargarActualizaciones()
         {
-            // Creo las carpetas necesarias para descargar las cosas.
             networking.CrearCarpetasRequeridas();
-
+            
             WebClient client = new WebClient();
+            client = new WebClient();
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(UpdateProgressChange);
             client.DownloadFileCompleted += new AsyncCompletedEventHandler(UpdateDone);
-            client.DownloadFileAsync(new Uri(Networking.HOST + URL), Directory.GetCurrentDirectory() + URL);
+            await networking.IniciarDescarga(client);
         }
 
         /**
@@ -102,28 +104,34 @@ namespace Launcher
          */
         private void UpdateDone(object sender, AsyncCompletedEventArgs e)
         {
-            if (local.ArchivoActual < networking.fileQueue.Count - 1)
+            // Decimos que ya terminó esta descarga
+            networking.downloadQueue.SetResult(true);
+
+            // Si NO quedan archivos pendientes por descargar...
+            if (local.ArchivoActual == (networking.fileQueue.Count - 1))
+            {
+                // Actualizo el VersionInfo.json
+                IO.SaveLatestVersionInfo(networking.versionRemotaString);
+                
+                // Actualizo el label.
+                lblDow.Content = "¡Actualización Completada!";
+                lblDow.Foreground = new SolidColorBrush(Colors.Yellow);
+
+                // Le digo al programa que ya no estamos actualizando mas nada.
+                local.Actualizando = false;
+                local.ArchivoActual = 0;
+                local.ArchivosDesactualizados = 0;
+                networking.fileQueue.Clear();
+
+                return;
+            }
+
+            // Si quedan, actualizamos el label.
+            if (local.ArchivoActual < networking.fileQueue.Count)
             {
                 local.ArchivoActual++;
 
-                lblDow.Content = "Descargando " + networking.fileQueue[local.ArchivoActual] +
-                                 ". Archivo " + local.ArchivoActual + " de " + networking.fileQueue.Count;
-
-                Descargar(networking.fileQueue[local.ArchivoActual]);
-
-            }
-            else
-            {
-                // Guardamos el VersionInfo.json actualizado. 
-                IO.SaveLatestVersionInfo(networking.versionRemotaString);
-
-                // Limpiamos la cola de archivos para descargar.
-                networking.fileQueue.Clear();
-
-                // Le decimos al programa que ya NO estamos en medio de una actualizacion.
-                local.ArchivoActual = 0;
-                local.ArchivosDesactualizados = 0;
-                local.Actualizando = false;
+                lblDow.Content = "Descargando " + networking.fileQueue[local.ArchivoActual] + ". Archivo " + local.ArchivoActual + " de " + (networking.fileQueue.Count - 1);
             }
         }
 
@@ -132,7 +140,7 @@ namespace Launcher
          */
         private void btnSitio_Click(object sender, RoutedEventArgs e)
         {
-            //Process.Start(URLWeb);
+            Process.Start(URLWeb);
         }
 
         private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
