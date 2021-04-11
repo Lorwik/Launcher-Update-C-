@@ -1,0 +1,391 @@
+<Window x:Class="Launcher.Main" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        WindowStyle="None" 
+        Title="Launcher - A0 20"
+        MouseDown="Window_MouseDown"
+        AllowsTransparency="true" 
+        Background="Transparent" 
+        WindowStartupLocation="CenterScreen"
+        Height="479" 
+        Width="493">
+
+    <Window.Resources>
+        <Style x:Key="Cardo">
+            <Setter Property="TextElement.FontFamily" Value="../../assets/fonts/#Cardo"/>
+        </Style>
+        <Style x:Key="AlegreyaAO">
+            <Setter Property="TextElement.FontFamily" Value="../../assets/fonts/#Alegreya_Sans_AO"/>
+        </Style>
+        
+            <Style TargetType="{x:Type CheckBox}" x:Key="chkCustom">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type CheckBox}">
+                            <Grid>
+                                <Image x:Name="checkBoxImage" Source="../assets/img/checkbox-small-off.png"></Image>
+                                <Image x:Name="checkBoxUncheck" Source="../assets/img/checkbox-small-on.png"></Image>
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="checkBoxUncheck" Property="Visibility" Value="visible"/>
+                                </Trigger>
+                                <Trigger Property="IsChecked" Value="False">
+                                    <Setter TargetName="checkBoxUncheck" Property="Visibility" Value="Hidden"/>
+                                </Trigger>
+                                <!--<Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="checkBoxImage" Property="Source" Value="/Images/checkcircle_hover.png"/>
+                            </Trigger>-->
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+    </Window.Resources>
+
+    <Grid x:Name="gPrincipal">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="356*"/>
+            <ColumnDefinition Width="137*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.Background>
+            <ImageBrush ImageSource="../../assets/img/ventanalauncher.png"/>
+        </Grid.Background>
+
+        <Grid Grid.ColumnSpan="2" RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.69"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Label x:Name="txtStatus" Content="" Style="{StaticResource Cardo}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="334,167,0,0" Width="122" Foreground="#FF3EE83E" FontSize="18" FontWeight="ExtraBlack" HorizontalContentAlignment="Center" />
+
+            <Button Click="btnJugar_Click" 
+						x:Name="btnJugar" 
+						Height="39"    
+                        Width="161"
+                        Margin="166,355,166,85">
+
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="../../assets/img/boton-comenzar-es-default.png"/>
+                </Button.Background>
+
+                <Button.Template>
+
+                    <ControlTemplate TargetType="{x:Type Button}">
+
+                        <Grid Background="{TemplateBinding Background}">
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <StackPanel>
+                                <Image x:Name="jugar" Source="../../assets/img/boton-comenzar-es-over.png"  Stretch="Uniform" Visibility="Collapsed" Height="39"/>
+                                <Image x:Name="jugar2" Source="../../assets/img/boton-comenzar-es-off.png"  Stretch="Uniform" Visibility="Collapsed" Height="39"/>
+                            </StackPanel>
+
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="jugar" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="jugar2" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="jugar" Property="Visibility" Value="Collapsed"/>
+                                <Setter TargetName="jugar2" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+
+            <Button Click="btnSalir_Click" 
+						x:Name="btnSalir" 
+						Content="" 
+						HorizontalAlignment="Left"
+						VerticalAlignment="Top" 
+						Width="42" 
+						Height="30" 
+						Margin="656,2,0,0"
+						RenderTransformOrigin="0.206,0.875" 
+						BorderBrush="{x:Null}" 
+						Foreground="{x:Null}">
+
+                <Button.Background>
+                    <ImageBrush  Stretch="Uniform"/>
+                </Button.Background>
+
+                <Button.Template>
+
+                    <ControlTemplate TargetType="{x:Type Button}">
+
+                        <Grid Background="{TemplateBinding Background}">
+
+                            <VisualStateManager.VisualStateGroups>
+
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver"/>
+                                </VisualStateGroup>
+
+                            </VisualStateManager.VisualStateGroups>
+
+                            <StackPanel>
+                                <Image x:Name="cerrar2" 
+											Stretch="Uniform" 
+											Visibility="Collapsed" 
+											Height="16"
+											Width="16" 
+											RenderTransformOrigin="0.206,0.875" 
+											Margin="0,0"/>
+                            </StackPanel>
+
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="cerrar2" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+
+                </Button.Template>
+            </Button>
+            <Label x:Name="txtStatus2" Content="Estado del servidor" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="334,151,37,0" Width="122" Foreground="#FFA8A8A8" FontSize="11" HorizontalContentAlignment="Center" FontFamily="Alegreya_AO" ForceCursor="True" FontWeight="Bold"/>
+            <Button 
+                x:Name="btnConfiguracion" 
+                Height="28"    
+                Width="132"
+                Margin="322,229,10,211" Click="btnConfiguracion_Click">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="../../assets/img/boton-configuracion-es-default.png"/>
+                </Button.Background>
+                <Button.Template>
+
+                    <ControlTemplate TargetType="{x:Type Button}">
+
+                        <Grid Background="{TemplateBinding Background}">
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <StackPanel>
+                                <Image x:Name="jugar" Source="../../assets/img/boton-configuracion-es-over.png"  Stretch="Uniform" Visibility="Collapsed"/>
+                                <Image x:Name="jugar2" Source="../../assets/img/boton-configuracion-es-off.png"  Stretch="Uniform" Visibility="Collapsed" />
+                            </StackPanel>
+
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="jugar" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="jugar2" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="jugar" Property="Visibility" Value="Collapsed"/>
+                                <Setter TargetName="jugar2" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+            <Button   Width="31"  Margin="464,2,-2,433" Height="28" Click="Button_Click">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="../../assets/img/boton-cerrar-default.png"/>
+                </Button.Background>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+
+                        <Grid Background="{TemplateBinding Background}">
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <StackPanel>
+                                <Image x:Name="jugar" Source="../../assets/img/boton-cerrar-over.png"  Stretch="Uniform" Visibility="Collapsed"/>
+                            </StackPanel>
+
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="jugar" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+        </Grid>
+        <TextBox x:Name="txtChangelog" HorizontalAlignment="Left" TextWrapping="Wrap" Width="275" Margin="39,155,0,141" Background="{x:Null}" Foreground="White" BorderThickness="0" VerticalScrollBarVisibility="Auto" TextChanged="txtChangelog_TextChanged"/>
+
+
+        <Image x:Name="pbVacia" HorizontalAlignment="Left" Height="39" Width="416" Margin="39,428,0,0" Source="../../assets/img/progress-bar-vacia.png" VerticalAlignment="Top" Grid.ColumnSpan="2" />
+        <Grid x:Name="grdPbarLlena" Width="0" HorizontalAlignment="Left"  VerticalAlignment="Top" Margin="39,428,0,0"  Height="39">
+            <Image x:Name="pbLlena"  Height="39" VerticalAlignment="Top"  Width="416"  Source="../../assets/img/progress-bar-llena.png" Grid.ColumnSpan="2" />
+        </Grid>
+        <Grid Height="20" Width="150" Margin="349,397,-6,46" Grid.ColumnSpan="2">
+            <Button x:Name="image_discord" Height="20" Width="20" Margin="84,0,46,0" Click="image_discord_Click" >
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="../../assets/img/ico-discord-default.png"/>
+                </Button.Background>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+
+                        <Grid Background="{TemplateBinding Background}">
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <StackPanel>
+                                <Image x:Name="jugar" Source="../../assets/img/ico-discord-over.png"  Stretch="Uniform" Visibility="Collapsed"/>
+                            </StackPanel>
+
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="jugar" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button x:Name="image_instagram" Height="20" Width="20" Margin="10,0,120,0" Click="image_instagram_Click">
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="../../assets/img/ico-instagram-default.png"/>
+                </Button.Background>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+
+                        <Grid Background="{TemplateBinding Background}">
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <StackPanel>
+                                <Image x:Name="jugar" Source="../../assets/img/ico-instagram-over.png"  Stretch="Uniform" Visibility="Collapsed"/>
+                            </StackPanel>
+
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="jugar" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="image_facebook" Height="20" Width="20"  Margin="59,0,71,0" Click="image_facebook_Click" >
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="../../assets/img/ico-facebook-default.png"/>
+                </Button.Background>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+
+                        <Grid Background="{TemplateBinding Background}">
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <StackPanel>
+                                <Image x:Name="jugar" Source="../../assets/img/ico-facebook-over.png"  Stretch="Uniform" Visibility="Collapsed"/>
+                            </StackPanel>
+
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="jugar" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="image_twitter" Height="20" Width="20"  Margin="34,0,96,0" >
+                <Button.Background>
+                    <ImageBrush Stretch="Uniform" ImageSource="../../assets/img/ico-twitter-default.png"/>
+                </Button.Background>
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+
+                        <Grid Background="{TemplateBinding Background}">
+
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+
+                            <StackPanel>
+                                <Image x:Name="jugar" Source="../../assets/img/ico-twitter-over.png"  Stretch="Uniform" Visibility="Collapsed"/>
+                            </StackPanel>
+
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="jugar" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Grid>
+        <Label x:Name="lblDow" 
+						Content="" 
+						VerticalAlignment="Top"
+                        Style="{StaticResource AlegreyaAO}"
+                        HorizontalContentAlignment="Center"
+						Margin="44,431,38,0" 
+						Height="23"
+						Padding="0,2,0,0" 
+						Foreground="#C3C3C3" Width="411" Grid.ColumnSpan="2" FontWeight="Bold"/>
+            <CheckBox x:Name="chkLanzarAutomatico" Content="Lanzar luego de atualizar"  Margin="170,404,32,39" Foreground="#8a8988" FontFamily="Alegreya Sans AO" FontWeight="Normal"/>
+    </Grid>
+</Window>

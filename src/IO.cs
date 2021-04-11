@@ -12,7 +12,7 @@ namespace Launcher.src
         public int ArchivosDesactualizados = 0;
         public int ArchivoActual = 0;
 
-        public static string VERSIONFILE_PATH = Directory.GetCurrentDirectory() + "\\Init\\VersionInfo2.json";
+        public static string VERSIONFILE_PATH = App.ARGENTUM_PATH + "Version.json";
 
 #nullable enable
         public static VersionInformation Get_LocalVersion(string? customVersionData)
@@ -30,16 +30,17 @@ namespace Launcher.src
                 StreamReader localStreamReader = null;
                 try
                 {
-                    localStreamReader = new StreamReader(VERSIONFILE_PATH);
-                    data = localStreamReader.ReadToEnd();
+                    if (File.Exists(VERSIONFILE_PATH))
+                    {
+                        localStreamReader = new StreamReader(VERSIONFILE_PATH);
+                        data = localStreamReader.ReadToEnd();
+                        localStreamReader.Close();
+                    }
+                   
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                }
-                finally
-                {
-                    localStreamReader.Close();
                 }
             }
 
@@ -47,7 +48,8 @@ namespace Launcher.src
             VersionInformation versionLocal = null;
             try
             {
-                versionLocal = JsonSerializer.Deserialize<VersionInformation>(data);
+                if (data != null)
+                    versionLocal = JsonSerializer.Deserialize<VersionInformation>(data);
             }
             catch (JsonException)
             {
@@ -64,10 +66,10 @@ namespace Launcher.src
         {
             using (var md5 = MD5.Create())
             {
-                using (var stream = File.OpenRead(Directory.GetCurrentDirectory() + filename))
+                using (var stream = File.OpenRead(App.ARGENTUM_PATH + filename))
                 {
                     var hash = md5.ComputeHash(stream);
-                    return BitConverter.ToString(hash).Replace("-", "");
+                    return BitConverter.ToString(hash).Replace("-", "").ToLower();
                 }
             }
         }

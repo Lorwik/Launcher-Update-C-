@@ -1,6 +1,8 @@
-
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudio,csharp
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudio,csharp
+
+# Argentum Files
+Argentum20
 
 ### Csharp ###
 ## Ignore Visual Studio temporary files, build results, and
@@ -9,6 +11,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # User-specific files
+.vscode
 *.rsuser
 *.suo
 *.user

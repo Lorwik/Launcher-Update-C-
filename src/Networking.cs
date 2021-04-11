@@ -10,12 +10,12 @@ namespace Launcher.src
 {
     class Networking
     {
-        public static string HOST = "https://winterao.com.ar/update/cliente/";
-        private readonly string VERSIONFILE_URI = HOST + "VersionInfo2.json";
+        public static string ROOT_PATH = "https://storageao20.blob.core.windows.net/resourcesao20";
+        private readonly string VERSION_PATH = ROOT_PATH + "/Version.json";
 
-        private readonly List<string> EXCEPCIONES = new List<string>() { 
-            "/Init/Config.ini",
-            "/Init/BindKeys.bin"
+        private readonly List<string> EXCEPCIONES = new List<string>() {
+            "Argentum20\\Recursos\\OUTPUT\\Configuracion.ini",
+            "Argentum20\\Recursos\\OUTPUT\\Teclas.ini"
         };
 
         // Acá está la info. del VersionInfo.json
@@ -30,14 +30,31 @@ namespace Launcher.src
          */
         public List<string> CheckOutdatedFiles()
         {
+
+            fileQueue.Clear();
+
             // Obtenemos los datos necesarios del servidor.
             VersionInformation versionRemota = Get_RemoteVersion();
 
             // Si no existe VersionInfo.json en la carpeta Init, ...
             VersionInformation versionLocal;
+
+            byte[] LauncherHadh;
+            string hashConverted;
+
+            using (var md5 = System.Security.Cryptography.MD5.Create())
+            {
+                using (var stream = File.OpenRead(Directory.GetCurrentDirectory() + "/Launcher - Argentum20.exe"))
+                {                    
+                    LauncherHadh = md5.ComputeHash(stream);
+                    hashConverted = BitConverter.ToString(LauncherHadh).Replace("-", "").ToLower();
+                }
+            }
+
             if (!File.Exists(IO.VERSIONFILE_PATH))
             {
                 // ... parseamos el string que obtuvimos del servidor.
+                
                 versionLocal = IO.Get_LocalVersion(versionRemotaString);
             }
             else // Si existe, ...
@@ -46,24 +63,46 @@ namespace Launcher.src
                 versionLocal = IO.Get_LocalVersion(null);
             }
 
+            VersionInformation.File archivoLocal, archivoRemoto;
+
+            //El archivo posicion 0 en el Version.JSON debe ser el launcher para comparar si está actualizado.
+            if (hashConverted.ToUpper() != versionRemota.Manifest.LauncherVersion)
+            {
+                return null;
+            }
+
             // Itero la lista de archivos del servidor y lo comparo con lo que tengo en local.
             for (int i = 0; i < versionRemota.Files.Count; i++)
             {
+                archivoLocal = versionLocal.Files[i];
+                archivoRemoto = versionRemota.Files[i];               
+
+                //Si existe el archivo
+
+                    //Si está en las excepciones lo omito
+
+                    //
+
+
+
                 // Si existe el archivo, comparamos el MD5..
-                if (File.Exists(Directory.GetCurrentDirectory() + versionRemota.Files[i].name))
+                if (File.Exists(App.ARGENTUM_PATH + "\\" + archivoRemoto.name))
                 {
                     // Si NO coinciden los hashes, ...
-                    if (!EXCEPCIONES.Contains(versionRemota.Files[i].name) && 
-                        IO.checkMD5(versionLocal.Files[i].name) != versionRemota.Files[i].checksum)
+                    if (!EXCEPCIONES.Contains(archivoRemoto.name))
                     {
-                        // ... lo agrego a la lista de archivos a descargar.
-                        fileQueue.Add(versionRemota.Files[i].name);
+                        if (IO.checkMD5(archivoLocal.name) != archivoRemoto.checksum)
+                        {
+                            // ... lo agrego a la lista de archivos a descargar.
+                            fileQueue.Add(archivoRemoto.name);
+                        }
                     }
+
                 }
                 else // Si existe el archivo, ...
                 {
                     // ... lo agrego a la lista de archivos a descargar.
-                    fileQueue.Add(versionRemota.Files[i].name);
+                    fileQueue.Add(archivoRemoto.name);
                 }
             }
 
@@ -73,39 +112,38 @@ namespace Launcher.src
             return fileQueue;
         }
 
+
+
         public VersionInformation Get_RemoteVersion()
         {
-            // Envio un GET al servidor con el JSON de el archivo de versionado.
             WebClient webClient = new WebClient();
+            VersionInformation versionRemota = null;
             try
             {
-                versionRemotaString = webClient.DownloadString(VERSIONFILE_URI);
+                // Envio un GET al servidor con el JSON de el archivo de versionado.
+                versionRemotaString = webClient.DownloadString(VERSION_PATH);
+                
+                // Me fijo que la response NO ESTÉ vacía.
+                if (versionRemotaString == null)
+                {
+                    MessageBox.Show("Hemos recibido una respuesta vacía del servidor. Contacta con un administrador :'(");
+                    Environment.Exit(0);
+                }
+
+                // Deserializamos el Version.json remoto
+                versionRemota = JsonSerializer.Deserialize<VersionInformation>(versionRemotaString);
             }
             catch (WebException error)
             {
                 MessageBox.Show(error.Message);
             }
+            catch (JsonException)
+            {
+                MessageBox.Show("Has recibido una respuesta invalida por parte del servidor.");
+            }
             finally
             {
                 webClient.Dispose();
-            }
-
-            // Me fijo que la response NO ESTÉ vacía.
-            if (versionRemotaString == null)
-            {
-                MessageBox.Show("Hemos recibido una respuesta vacía del servidor. Contacta con un administrador :'(");
-                Environment.Exit(0);
-            }
-
-            // Deserializamos el Version.json remoto
-            VersionInformation versionRemota = null;
-            try
-            {
-                versionRemota = JsonSerializer.Deserialize<VersionInformation>(versionRemotaString);
-            }
-            catch (JsonException)
-            {
-                MessageBox.Show("Error al de-serializar: El Version.json del servidor tiene un formato inválido.");
             }
 
             return versionRemota;
@@ -115,7 +153,7 @@ namespace Launcher.src
         {
             foreach(string folder in versionRemota.Folders)
             {
-                string currentFolder = Directory.GetCurrentDirectory() + folder;
+                string currentFolder = App.ARGENTUM_PATH + "\\" + folder;
 
                 if (!Directory.Exists(currentFolder))
                 {
@@ -123,7 +161,6 @@ namespace Launcher.src
                 }
             }
         }
-
 
         /**
          * ADVERTENCIA: Esto es parte de el método DescargarActualizaciones() en MainWindow.xaml.cs
@@ -133,12 +170,13 @@ namespace Launcher.src
          */
         public async Task IniciarDescarga(WebClient webClient)
         {
+            Uri uriDescarga;
             //files contains all URL links
             foreach (string file in fileQueue)
             {
                 downloadQueue = new TaskCompletionSource<bool>();
-
-                webClient.DownloadFileAsync(new Uri(HOST + file), Directory.GetCurrentDirectory() + file);
+                uriDescarga = new Uri(ROOT_PATH + "/" + file);
+                webClient.DownloadFileAsync(uriDescarga, App.ARGENTUM_PATH + file);
 
                 await downloadQueue.Task;
             }
