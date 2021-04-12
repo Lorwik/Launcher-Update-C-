@@ -15,13 +15,15 @@
 
 	}
 	
-	$subfolder = __DIR__.'/WinterClient/';
+	$serverfolder = '/' . $_GET["sv"] . '/';
+	
+	$subfolder = __DIR__.$serverfolder;
 	
 	/*
 		Escanea los archivos que estan en el directorio actual y, aplicando el filto
 		lista los archivos y los guarda en el array `files[numeroDeArchivo]`
 	*/
-	function listFiles($subfolder) {
+	function listFiles($subfolder, $serverfolder) {
 		$iterator 	= new RecursiveDirectoryIterator($subfolder);
 		$iterator->setFlags(RecursiveDirectoryIterator::SKIP_DOTS);
 		
@@ -40,11 +42,11 @@
 
 			// Si es un directorio, no lo guardo en el array.
 			if (is_dir($path_name)) {
-				$folders[$folder_count] = $name;
+				$folders[$folder_count] = $serverfolder . $name;
 				$folder_count++;
 			}
 			else {
-				$files[$file_count]['name'] = $name;
+				$files[$file_count]['name'] = $serverfolder . $name;
 				$files[$file_count]['checksum'] = md5_file($path_name);
 				$file_count++;
 			}
@@ -65,11 +67,12 @@
 	}
 
 	// Transformamos el array que nos devuelve la funcion `listfiles()` a JSON
-	$output = json_encode(listFiles($subfolder));
+	$output = json_encode(listFiles($subfolder, $serverfolder), JSON_PRETTY_PRINT);
 	
 	// Guardamos el archivo.
 	file_put_contents($subfolder . "VersionInfo.json", $output);
-
+	
+	header('Content-Type: application/json');
 	// Mostramos lo que grabamos en el .json
-	echo $output;
+	print_r($output);
 ?>

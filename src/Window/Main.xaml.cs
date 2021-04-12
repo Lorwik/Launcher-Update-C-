@@ -207,14 +207,18 @@ namespace Launcher
 
         private static void AbrirJuego()
         {
-            string gameExecutable = App.ARGENTUM_PATH + "Argentum20\\Cliente\\Argentum.exe";
+            string gameExecutable = App.ARGENTUM_PATH + App.SERVER_SELECT + "\\" + App.SERVER_EXE;
+
             if (File.Exists(gameExecutable))
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.FileName = gameExecutable;
                 startInfo.UseShellExecute = false;
+
                 try
                 {
+                    
+                    Configuracion.WritePrivateProfileString("PARAMETERS", "LAUCH", "1", App.CONFIG_FILE);
                     // Start the process with the info we specified.
                     Process.Start(startInfo);
 

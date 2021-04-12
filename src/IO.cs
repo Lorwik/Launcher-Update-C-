@@ -12,7 +12,7 @@ namespace Launcher.src
         public int ArchivosDesactualizados = 0;
         public int ArchivoActual = 0;
 
-        public static string VERSIONFILE_PATH = App.ARGENTUM_PATH + "VersionInfo.json";
+        public static string VERSIONFILE_PATH = App.ARGENTUM_PATH + App.SERVER_SELECT + "\\VersionInfo.json";
 
 #nullable enable
         public static VersionInformation Get_LocalVersion(string? customVersionData)

@@ -10,12 +10,12 @@ namespace Launcher.src
 {
     class Networking
     {
-        public static string ROOT_PATH = "https://winterao.com.ar/update/WinterClient";
-        private readonly string VERSION_PATH = ROOT_PATH + "/VersionInfo.json";
+        public static string ROOT_PATH = "https://winterao.com.ar/update";
+        private readonly string VERSION_PATH = ROOT_PATH + "/" + App.SERVER_SELECT + "/VersionInfo.json";
 
         private readonly List<string> EXCEPCIONES = new List<string>() {
-            "WinterAO\\Init\\Config.ini",
-            "WinterAO\\Init\\BindKeys.ini"
+            "/" + App.SERVER_SELECT + "/Init/Config.ini",
+            "/" + App.SERVER_SELECT + "/Init/BindKeys.bin"
         };
 
         // Acá está la info. del VersionInfo.json
@@ -66,45 +66,40 @@ namespace Launcher.src
             VersionInformation.File archivoLocal, archivoRemoto;
 
             //El archivo posicion 0 en el VersionInfo.json debe ser el launcher para comparar si está actualizado.
-            if (hashConverted.ToUpper() != versionRemota.Manifest.LauncherVersion)
-            {
-                return null;
-            }
+            //if (hashConverted.ToUpper() != versionRemota.Manifest.LauncherVersion)
+            //{
+            //    return null;
+            //}
 
             // Itero la lista de archivos del servidor y lo comparo con lo que tengo en local.
             for (int i = 0; i < versionRemota.Files.Count; i++)
             {
                 archivoLocal = versionLocal.Files[i];
-                archivoRemoto = versionRemota.Files[i];               
+                archivoRemoto = versionRemota.Files[i];
 
-                //Si existe el archivo
-
-                    //Si está en las excepciones lo omito
-
-                    //
-
-
-
-                // Si existe el archivo, comparamos el MD5..
-                if (File.Exists(App.ARGENTUM_PATH + "\\" + archivoRemoto.name))
-                {
-                    // Si NO coinciden los hashes, ...
-                    if (!EXCEPCIONES.Contains(archivoRemoto.name))
+                    // Si existe el archivo, comparamos el MD5..
+                    if (File.Exists(App.ARGENTUM_PATH + "\\" + archivoRemoto.name))
                     {
-                        if (IO.checkMD5(archivoLocal.name) != archivoRemoto.checksum)
-                        {
-                            // ... lo agrego a la lista de archivos a descargar.
-                            fileQueue.Add(archivoRemoto.name);
+                        //Si esta en la lista magica de Excepciones lo omitimos
+                        if (!EXCEPCIONES.Contains(archivoRemoto.name)) {
+                            // Si NO coinciden los hashes, ...
+                            if (!EXCEPCIONES.Contains(archivoRemoto.name))
+                            {
+                                if (IO.checkMD5(archivoLocal.name) != archivoRemoto.checksum)
+                                {
+                                    // ... lo agrego a la lista de archivos a descargar.
+                                    fileQueue.Add(archivoRemoto.name);
+                                }
+                            }
                         }
-                    }
 
+                    }
+                    else // Si existe el archivo, ...
+                    {
+                        // ... lo agrego a la lista de archivos a descargar.
+                        fileQueue.Add(archivoRemoto.name);
+                    }
                 }
-                else // Si existe el archivo, ...
-                {
-                    // ... lo agrego a la lista de archivos a descargar.
-                    fileQueue.Add(archivoRemoto.name);
-                }
-            }
 
             // Guardo en un field el objeto de-serializado de la info. remota.
             this.versionRemota = versionRemota;

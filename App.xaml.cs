@@ -14,6 +14,9 @@ namespace Launcher
 		
 		// Todos los archivos del cliente en la subcarpeta WinterAO, para no mezclarlos con los archivos del Launcher.
         public static string ARGENTUM_PATH = Directory.GetCurrentDirectory() + "\\";
+        public static string SERVER_SELECT = "WinterClient";
+        public static string SERVER_EXE = "WinterAOResurrection.exe";
+        public static string CONFIG_FILE = App.ARGENTUM_PATH + App.SERVER_SELECT + "\\Init\\Config.ini";
 
         protected override void OnStartup(StartupEventArgs e)
 		{

@@ -13,9 +13,8 @@ namespace Launcher.src
     public partial class Configuracion : Window
     {
         AOCfg AOCfg = new AOCfg();
-        private static string CONFIG_FILE = App.ARGENTUM_PATH + "WinterAO\\Init\\Config.ini";
         [DllImport("kernel32")]
-        static extern long WritePrivateProfileString(string Section, string Key, string Value, string FilePath);
+        public static extern long WritePrivateProfileString(string Section, string Key, string Value, string FilePath);
         
         public Configuracion()
         {
@@ -27,7 +26,7 @@ namespace Launcher.src
         private void cargarConfiguraciones()
         {
             var parser = new FileIniDataParser();
-            IniData file = parser.ReadFile(CONFIG_FILE);
+            IniData file = parser.ReadFile(App.CONFIG_FILE);
 
             AOCfg.PantallaCompleta = Convert.ToBoolean(Convert.ToInt32(file["VIDEO"]["PantallaCompleta"]));
             AOCfg.PrecargaGrafica = Convert.ToBoolean(Convert.ToInt32(file["VIDEO"]["UtilizarPreCarga"]));
@@ -50,12 +49,12 @@ namespace Launcher.src
 
         private void btnAceptar_click(object sender, RoutedEventArgs e)
         {
-            WritePrivateProfileString("VIDEO", "PantallaCompleta", Convert.ToInt32(chkPantallaCompleta.IsChecked).ToString(), CONFIG_FILE);
-            WritePrivateProfileString("VIDEO", "UtilizarPreCarga", Convert.ToInt32(chkPrecargaGrafica.IsChecked).ToString(), CONFIG_FILE);
-            WritePrivateProfileString("VIDEO", "CursoresGraficos", Convert.ToInt32(chkPunterosGraficcos.IsChecked).ToString(), CONFIG_FILE);
-            WritePrivateProfileString("VIDEO", "LimitarFPS", Convert.ToInt32(chkSincronizacionVertical.IsChecked).ToString(), CONFIG_FILE);
-            WritePrivateProfileString("AUDIO", "Musica", Convert.ToInt32(chkMusica.IsChecked).ToString(), CONFIG_FILE);
-            WritePrivateProfileString("AUDIO", "Sonido", Convert.ToInt32(chkEfectos.IsChecked).ToString(), CONFIG_FILE);
+            WritePrivateProfileString("VIDEO", "PantallaCompleta", Convert.ToInt32(chkPantallaCompleta.IsChecked).ToString(), App.CONFIG_FILE);
+            WritePrivateProfileString("VIDEO", "UtilizarPreCarga", Convert.ToInt32(chkPrecargaGrafica.IsChecked).ToString(), App.CONFIG_FILE);
+            WritePrivateProfileString("VIDEO", "CursoresGraficos", Convert.ToInt32(chkPunterosGraficcos.IsChecked).ToString(), App.CONFIG_FILE);
+            WritePrivateProfileString("VIDEO", "LimitarFPS", Convert.ToInt32(chkSincronizacionVertical.IsChecked).ToString(), App.CONFIG_FILE);
+            WritePrivateProfileString("AUDIO", "Musica", Convert.ToInt32(chkMusica.IsChecked).ToString(), App.CONFIG_FILE);
+            WritePrivateProfileString("AUDIO", "Sonido", Convert.ToInt32(chkEfectos.IsChecked).ToString(), App.CONFIG_FILE);
 
             this.Close();
         }
