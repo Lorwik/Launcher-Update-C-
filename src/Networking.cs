@@ -10,12 +10,12 @@ namespace Launcher.src
 {
     class Networking
     {
-        public static string ROOT_PATH = "https://storageao20.blob.core.windows.net/resourcesao20";
-        private readonly string VERSION_PATH = ROOT_PATH + "/Version.json";
+        public static string ROOT_PATH = "https://winterao.com.ar/update/WinterClient";
+        private readonly string VERSION_PATH = ROOT_PATH + "/VersionInfo.json";
 
         private readonly List<string> EXCEPCIONES = new List<string>() {
-            "Argentum20\\Recursos\\OUTPUT\\Configuracion.ini",
-            "Argentum20\\Recursos\\OUTPUT\\Teclas.ini"
+            "WinterAO\\Init\\Config.ini",
+            "WinterAO\\Init\\BindKeys.ini"
         };
 
         // Acá está la info. del VersionInfo.json
@@ -44,7 +44,7 @@ namespace Launcher.src
 
             using (var md5 = System.Security.Cryptography.MD5.Create())
             {
-                using (var stream = File.OpenRead(Directory.GetCurrentDirectory() + "/Launcher - Argentum20.exe"))
+                using (var stream = File.OpenRead(Directory.GetCurrentDirectory() + "/Launcher - ComunidadWinter.exe"))
                 {                    
                     LauncherHadh = md5.ComputeHash(stream);
                     hashConverted = BitConverter.ToString(LauncherHadh).Replace("-", "").ToLower();
@@ -65,7 +65,7 @@ namespace Launcher.src
 
             VersionInformation.File archivoLocal, archivoRemoto;
 
-            //El archivo posicion 0 en el Version.JSON debe ser el launcher para comparar si está actualizado.
+            //El archivo posicion 0 en el VersionInfo.json debe ser el launcher para comparar si está actualizado.
             if (hashConverted.ToUpper() != versionRemota.Manifest.LauncherVersion)
             {
                 return null;
@@ -126,11 +126,11 @@ namespace Launcher.src
                 // Me fijo que la response NO ESTÉ vacía.
                 if (versionRemotaString == null)
                 {
-                    MessageBox.Show("Hemos recibido una respuesta vacía del servidor. Contacta con un administrador :'(");
+                    MessageBox.Show("Hemos recibido una respuesta vacía del servidor. Contacta con un administrador.");
                     Environment.Exit(0);
                 }
 
-                // Deserializamos el Version.json remoto
+                // Deserializamos el VersionInfo.json remoto
                 versionRemota = JsonSerializer.Deserialize<VersionInformation>(versionRemotaString);
             }
             catch (WebException error)

@@ -13,7 +13,7 @@ namespace Launcher.src
     public partial class Configuracion : Window
     {
         AOCfg AOCfg = new AOCfg();
-        private static string CONFIG_FILE = App.ARGENTUM_PATH + "Argentum20\\Recursos\\OUTPUT\\Configuracion.ini";
+        private static string CONFIG_FILE = App.ARGENTUM_PATH + "WinterAO\\Init\\Config.ini";
         [DllImport("kernel32")]
         static extern long WritePrivateProfileString(string Section, string Key, string Value, string FilePath);
         
@@ -32,10 +32,10 @@ namespace Launcher.src
             AOCfg.PantallaCompleta = Convert.ToBoolean(Convert.ToInt32(file["VIDEO"]["PantallaCompleta"]));
             AOCfg.PrecargaGrafica = Convert.ToBoolean(Convert.ToInt32(file["VIDEO"]["UtilizarPreCarga"]));
             AOCfg.PunterosGraficos = Convert.ToBoolean(Convert.ToInt32(file["VIDEO"]["CursoresGraficos"]));
-            AOCfg.VSync = Convert.ToBoolean(Convert.ToInt32(file["VIDEO"]["VSync"]));
+            AOCfg.VSync = Convert.ToBoolean(Convert.ToInt32(file["VIDEO"]["LimitarFPS"]));
 
             AOCfg.Musica = Convert.ToBoolean(Convert.ToInt32(file["AUDIO"]["Musica"]));
-            AOCfg.Efectos = Convert.ToBoolean(Convert.ToInt32(file["AUDIO"]["Fx"]));
+            AOCfg.Efectos = Convert.ToBoolean(Convert.ToInt32(file["AUDIO"]["Sonido"]));
         }
 
         private void actualizarCheckboxs()
@@ -53,9 +53,9 @@ namespace Launcher.src
             WritePrivateProfileString("VIDEO", "PantallaCompleta", Convert.ToInt32(chkPantallaCompleta.IsChecked).ToString(), CONFIG_FILE);
             WritePrivateProfileString("VIDEO", "UtilizarPreCarga", Convert.ToInt32(chkPrecargaGrafica.IsChecked).ToString(), CONFIG_FILE);
             WritePrivateProfileString("VIDEO", "CursoresGraficos", Convert.ToInt32(chkPunterosGraficcos.IsChecked).ToString(), CONFIG_FILE);
-            WritePrivateProfileString("VIDEO", "VSync", Convert.ToInt32(chkSincronizacionVertical.IsChecked).ToString(), CONFIG_FILE);
+            WritePrivateProfileString("VIDEO", "LimitarFPS", Convert.ToInt32(chkSincronizacionVertical.IsChecked).ToString(), CONFIG_FILE);
             WritePrivateProfileString("AUDIO", "Musica", Convert.ToInt32(chkMusica.IsChecked).ToString(), CONFIG_FILE);
-            WritePrivateProfileString("AUDIO", "Fx", Convert.ToInt32(chkEfectos.IsChecked).ToString(), CONFIG_FILE);
+            WritePrivateProfileString("AUDIO", "Sonido", Convert.ToInt32(chkEfectos.IsChecked).ToString(), CONFIG_FILE);
 
             this.Close();
         }

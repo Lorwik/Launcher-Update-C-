@@ -5,12 +5,12 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>Argentum.ico</ApplicationIcon>
+    <ApplicationIcon>Winter.ico</ApplicationIcon>
     <StartupObject>Launcher.App</StartupObject>
-    <AssemblyName>Launcher - Argentum20</AssemblyName>
-    <PackageProjectUrl>https://ao20.com.ar</PackageProjectUrl>
+    <AssemblyName>Launcher - ComunidadWinter</AssemblyName>
+    <PackageProjectUrl>https://winterao.com.ar</PackageProjectUrl>
     <RepositoryType>Private</RepositoryType>
-    <Authors>Abusiv0, Jopi, HarThaoS, WyroX</Authors>
+    <Authors>Lorwik</Authors>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 

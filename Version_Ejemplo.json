@@ -1,0 +1,159 @@
+{
+	"Manifest": {
+		"LauncherVersion": "DC2959B53262EBBE0B4F2CEB1B8C3D6E",
+		"TotalFiles": 36,
+		"TotalFolders": 4
+	},
+	"Files": [
+		{
+			"name": "Argentum20\\Cliente\\aamd532.dll",
+			"checksum": "cefd956a1ef122cda4d53007bab6c694"
+		},
+		{
+			"name": "Argentum20\\Cliente\\AdminLibSetup.exe",
+			"checksum": "498e84e08f09b6b602507a04600e0123"
+		},
+		{
+			"name": "Argentum20\\Cliente\\Argentum.exe",
+			"checksum": "6a3cf3e4353ebaa37425df2cb4181232"
+		},
+		{
+			"name": "Argentum20\\Cliente\\Argentum.exe.manifest",
+			"checksum": "1ffc4ec3208fe172f2a1815b34eee338"
+		},
+		{
+			"name": "Argentum20\\Cliente\\Argentum.ico",
+			"checksum": "a4f53afbdb106e8a3e5f182f07438141"
+		},
+		{
+			"name": "Argentum20\\Cliente\\comctl32.ocx",
+			"checksum": "2640ad05ab39321e6c9d3c71236ca0df"
+		},
+		{
+			"name": "Argentum20\\Cliente\\COMDLG32.OCX",
+			"checksum": "d76f0eab36f83a31d411aeaf70da7396"
+		},
+		{
+			"name": "Argentum20\\Cliente\\CSWSK32.OCX",
+			"checksum": "854634761cda67f731c39bec17790ab7"
+		},
+		{
+			"name": "Argentum20\\Cliente\\ijl11.dll",
+			"checksum": "a0ce0247d48fecaac607edb1e2d87fd8"
+		},
+		{
+			"name": "Argentum20\\Cliente\\MCI32.OCX",
+			"checksum": "62b0194f801f2ae74b8b70900da50901"
+		},
+		{
+			"name": "Argentum20\\Cliente\\mpr.dll",
+			"checksum": "2cfe80aa3428c09e6de67fac50da65cf"
+		},
+		{
+			"name": "Argentum20\\Cliente\\MSCOMCTL.DLL",
+			"checksum": "fda48714f6a291e25a1a219e89d59d9b"
+		},
+		{
+			"name": "Argentum20\\Cliente\\MSCOMCTL.oca",
+			"checksum": "2e988da4f73c23ae1bd83c77e90c8d6d"
+		},
+		{
+			"name": "Argentum20\\Cliente\\MSCOMCTL.OCX",
+			"checksum": "273676426739b02a45a0fc9349500b65"
+		},
+		{
+			"name": "Argentum20\\Cliente\\MSINET.OCX",
+			"checksum": "b920865c9c2f4f28151b269b3a8b11aa"
+		},
+		{
+			"name": "Argentum20\\Cliente\\MSSTDFMT.DLL",
+			"checksum": "182f9ab07e664485cf6365a48c6eb320"
+		},
+		{
+			"name": "Argentum20\\Cliente\\MSVBVM60.DLL",
+			"checksum": "7103b491fd8fffd7c490a1f50822c15e"
+		},
+		{
+			"name": "Argentum20\\Cliente\\MSWINSCK.oca",
+			"checksum": "062e0ee1c0e2020e08253aa20981dcf3"
+		},
+		{
+			"name": "Argentum20\\Cliente\\MSWINSCK.OCX",
+			"checksum": "0e552f559edb48ac376a1e54b20996fd"
+		},
+		{
+			"name": "Argentum20\\Cliente\\RICHTX32.OCX",
+			"checksum": "722435ba4d18f1704b43e823a12e489a"
+		},
+		{
+			"name": "Argentum20\\Cliente\\zlib.dll",
+			"checksum": "4965107d112666d3835308a831a29274"
+		},
+		{
+			"name": "Argentum20\\Recursos\\OUTPUT\\Alegreya Sans AO.ttf",
+			"checksum": "bd126aa503aaf96aaab48d0ffb776728"
+		},
+		{
+			"name": "Argentum20\\Recursos\\OUTPUT\\AO.bin",
+			"checksum": "d9500cdd7a8f2ee70c88a7518a441753"
+		},
+		{
+			"name": "Argentum20\\Recursos\\OUTPUT\\Autoupdate.ini",
+			"checksum": "af93288902c97dc74cfeab1f147eb1c4"
+		},
+		{
+			"name": "Argentum20\\Recursos\\OUTPUT\\Cardo.ttf",
+			"checksum": "ca58f66af4a608b85fe97fa49bdf1770"
+		},
+		{
+			"name": "Argentum20\\Recursos\\OUTPUT\\Configuracion.ini",
+			"checksum": "a000257ae63f6af41e87307f3f80441f"
+		},
+		{
+			"name": "Argentum20\\Recursos\\OUTPUT\\Graficos.rao",
+			"checksum": "7426166c86f18b2c6831c64a95892b48"
+		},
+		{
+			"name": "Argentum20\\Recursos\\OUTPUT\\Init.rao",
+			"checksum": "59dfef0552926c2c2667a72779f6bbaa"
+		},
+		{
+			"name": "Argentum20\\Recursos\\OUTPUT\\Interface.rao",
+			"checksum": "cd421e81e82cfafad416e16ca42a6a6d"
+		},
+		{
+			"name": "Argentum20\\Recursos\\OUTPUT\\Livvic.ttf",
+			"checksum": "686d9685b805c407876cd1abd698fd73"
+		},
+		{
+			"name": "Argentum20\\Recursos\\OUTPUT\\Mapas.rao",
+			"checksum": "8404aab20194596f9a1e647a5c4dbf7c"
+		},
+		{
+			"name": "Argentum20\\Recursos\\OUTPUT\\MIDI.rao",
+			"checksum": "29f9decb732a8d1bbeb19250c25ca407"
+		},
+		{
+			"name": "Argentum20\\Recursos\\OUTPUT\\MiniMapas.rao",
+			"checksum": "5abf9f6aae8e776bfb7661b12d9d6284"
+		},
+		{
+			"name": "Argentum20\\Recursos\\OUTPUT\\MP3.rao",
+			"checksum": "d41d8cd98f00b204e9800998ecf8427e"
+		},
+		{
+			"name": "Argentum20\\Recursos\\OUTPUT\\Sounds.rao",
+			"checksum": "c5dd100c900c69af163542d8c9b87de1"
+		},
+		{
+			"name": "Argentum20\\Recursos\\OUTPUT\\Teclas.ini",
+			"checksum": "53f762c94665e736feb3376e604babf8"
+		}
+	],
+	"Folders": [
+		"Argentum20",
+		"Argentum20\\Cliente",
+		"Argentum20\\Recursos",
+		"Argentum20\\Recursos\\OUTPUT"
+	]
+}

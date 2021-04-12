@@ -34,7 +34,7 @@ namespace Launcher
                  MessageBoxResult result = MessageBox.Show("Esta versión del launcher es obsoleta, ¿Desea descargar la ultima versión?", "Versión desactualizada", MessageBoxButton.YesNo, MessageBoxImage.Information);
                 if (result == MessageBoxResult.Yes)
                 {
-                    var uri = "https://ao20.com.ar";
+                    var uri = "https://winterao.com.ar";
                     var psi = new System.Diagnostics.ProcessStartInfo();
                     psi.UseShellExecute = true;
                     psi.FileName = uri;
@@ -43,14 +43,14 @@ namespace Launcher
                 this.Close();
             }
 
-            getServerStatus();
+            //getServerStatus(); API
             getChangelog();
             checkConfiguracion();
         }
 
         private void checkConfiguracion()
         {
-            if(!File.Exists(Directory.GetCurrentDirectory() + "\\Argentum20\\" + "Recursos\\OUTPUT\\Configuracion.ini")){
+            if(!File.Exists(Directory.GetCurrentDirectory() + "\\WinterAO\\" + "Init\\Config.ini")){
                 btnConfiguracion.Visibility = Visibility.Hidden;
             }
             else
@@ -124,7 +124,7 @@ namespace Launcher
         private async void getServerStatus()
         {
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync("http://api.ao20.com.ar/");
+            HttpResponseMessage response = await client.GetAsync("http://winterao.com.ar/"); //API
             response.EnsureSuccessStatusCode();
             string responseBody = await response.Content.ReadAsStringAsync();
 
@@ -148,7 +148,7 @@ namespace Launcher
 
         private void getChangelog()
         {
-            string Url = "http://autoupdate.ao20.com.ar/changelog.txt";
+            string Url = "http://winterao.com.ar/update/changelog.txt";
             var webRequest = WebRequest.Create(Url);
             var responseStream = webRequest.GetResponse().GetResponseStream();
 
@@ -237,7 +237,7 @@ namespace Launcher
          */
         private void btnSitio_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://ao20.com.ar");
+            Process.Start("https://winterao.com.ar");
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -286,18 +286,18 @@ namespace Launcher
 
         private void image_discord_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://discord.gg/e3juVbF");
+            Process.Start("https://discord.gg/WHWZwYP");
         }
 
         private void image_facebook_Click(object sender, RoutedEventArgs e)
         {
 
-            Process.Start("https://www.facebook.com/ao20oficial/"); 
+            Process.Start("https://www.facebook.com/Winter-AO-Resurrection-100546474972832"); 
         }
 
         private void image_instagram_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://www.instagram.com/ao20oficial/?hl=es");
+            Process.Start("https://www.instagram.com/winterao_argentumonline");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

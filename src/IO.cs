@@ -12,7 +12,7 @@ namespace Launcher.src
         public int ArchivosDesactualizados = 0;
         public int ArchivoActual = 0;
 
-        public static string VERSIONFILE_PATH = App.ARGENTUM_PATH + "Version.json";
+        public static string VERSIONFILE_PATH = App.ARGENTUM_PATH + "VersionInfo.json";
 
 #nullable enable
         public static VersionInformation Get_LocalVersion(string? customVersionData)
@@ -44,7 +44,7 @@ namespace Launcher.src
                 }
             }
 
-            // Deserializamos el Version.json local
+            // Deserializamos el VersionInfo.json local
             VersionInformation versionLocal = null;
             try
             {
@@ -53,7 +53,7 @@ namespace Launcher.src
             }
             catch (JsonException)
             {
-                MessageBox.Show("Error al de-serializar: El Version.json tiene un formato inválido.");
+                MessageBox.Show("Error al de-serializar: El VersionInfo.json tiene un formato inválido.");
             }
 
             return versionLocal;

@@ -12,13 +12,13 @@ namespace Launcher
     {
         private static Mutex _mutex = null;
 		
-		// Todos los archivos del cliente en la subcarpeta Argentum20, para no mezclarlos con los archivos del Launcher.
+		// Todos los archivos del cliente en la subcarpeta WinterAO, para no mezclarlos con los archivos del Launcher.
         public static string ARGENTUM_PATH = Directory.GetCurrentDirectory() + "\\";
 
         protected override void OnStartup(StartupEventArgs e)
 		{
             // Chequeo que solo haya 1 instancia de la aplicacion.
-            _mutex = new Mutex(true, "Launcher - Argentum20", out bool singleInstance);
+            _mutex = new Mutex(true, "Launcher - ComunidadWinter", out bool singleInstance);
 			if (!singleInstance)
 			{
 				// ya hay una instancia de esta aplicación, cerramos la nueva.
