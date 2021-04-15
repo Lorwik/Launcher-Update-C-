@@ -38,5 +38,6 @@ namespace Launcher
 			_mutex.ReleaseMutex();
             base.OnExit(e);
         }
+
     }
 }

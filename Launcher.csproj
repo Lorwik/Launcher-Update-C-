@@ -22,5 +22,15 @@
     <Resource Include="assets\img\*.png" />
     <Resource Include="assets\fonts\*.ttf" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="src\Window\ventanalauncher-imperium.png" />
+    <None Remove="src\Window\ventanalauncher.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="src\Window\ventanalauncher-imperium.png" />
+    <Resource Include="src\Window\ventanalauncher.png" />
+  </ItemGroup>
   
 </Project>

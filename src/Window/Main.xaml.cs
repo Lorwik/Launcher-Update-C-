@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Text.Json;
+using System.Windows.Media.Imaging;
 
 namespace Launcher
 {
@@ -29,11 +30,28 @@ namespace Launcher
             // Inicializamos los componentes de este formulario.
             InitializeComponent();
 
-            if(BuscarActualizaciones() == -1)
-            {
-                 MessageBoxResult result = MessageBox.Show("Esta versión del launcher es obsoleta, ¿Desea descargar la ultima versión?", "Versión desactualizada", MessageBoxButton.YesNo, MessageBoxImage.Information);
-                if (result == MessageBoxResult.Yes)
-                {
+            iniciarCheckUpdate();
+
+        }
+
+        public static void cambiarServer(string serverName, string serverEXE) {
+
+            App.SERVER_SELECT = serverName;
+            App.SERVER_EXE = serverEXE;
+            App.CONFIG_FILE = App.ARGENTUM_PATH + App.SERVER_SELECT + "\\Init\\Config.ini";
+            IO.VERSIONFILE_PATH = App.ARGENTUM_PATH + App.SERVER_SELECT + "\\VersionInfo.json";
+
+        }
+
+        /*
+         * Inicia la comprobación de actualizaciones para el server seleccionada.
+         * Probablemente esto sea temporal, ya que cuando cambiamos de server quizas no me interesa volver a 
+         * comprobar la versión del launcher.
+         */
+        private void iniciarCheckUpdate() {
+            if (BuscarActualizaciones() == -1) {
+                MessageBoxResult result = MessageBox.Show("Esta versión del launcher es obsoleta, ¿Desea descargar la ultima versión?", "Versión desactualizada", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (result == MessageBoxResult.Yes) {
                     var uri = "https://winterao.com.ar";
                     var psi = new System.Diagnostics.ProcessStartInfo();
                     psi.UseShellExecute = true;
@@ -43,7 +61,6 @@ namespace Launcher
                 this.Close();
             }
 
-            //getServerStatus(); API
             getChangelog();
             checkConfiguracion();
         }
@@ -59,27 +76,24 @@ namespace Launcher
             }
         }
 
-        private int BuscarActualizaciones()
-        {
-            if (networking.CheckOutdatedFiles() != null)
-            {
+        private int BuscarActualizaciones() {
+            
+            if (networking.CheckOutdatedFiles() != null) {
                 local.ArchivosDesactualizados = networking.CheckOutdatedFiles().Count;
-            }
-            else
-            {
+
+            } else {
                 //si la función devuelve un 0 quiere decir que hay que actualizar el launcher.
                 return -1;
+
             }
-            
+
             // Comprobamos la version actual del cliente
-            if (local.ArchivosDesactualizados == 0)
-            {
+            if (local.ArchivosDesactualizados == 0) {
                 lblDow.Content = "¡Cliente al día!";
                 lblDow.HorizontalContentAlignment = HorizontalAlignment.Center;
                 lblDow.Foreground = new SolidColorBrush(Colors.Yellow);
-            }
-            else // Si el cliente no esta actualizado, lo notificamos
-            {
+
+            } else { // Si el cliente no esta actualizado, lo notificamos
                 lblDow.Content = "Tienes " + local.ArchivosDesactualizados + " archivos desactualizados...";
                 lblDow.HorizontalContentAlignment = HorizontalAlignment.Center;
                 lblDow.Foreground = new SolidColorBrush(Colors.Red);
@@ -121,34 +135,10 @@ namespace Launcher
             await networking.IniciarDescarga(client);
         }
 
-        private async void getServerStatus()
-        {
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.GetAsync("http://winterao.com.ar/"); //API
-            response.EnsureSuccessStatusCode();
-            string responseBody = await response.Content.ReadAsStringAsync();
-
-            ServerStatus serverStatus = JsonSerializer.Deserialize<ServerStatus>(responseBody);    
-            
-            if(serverStatus != null)
-            {
-                if (serverStatus.ok)
-                {
-                    txtStatus.Content = "ONLINE: " + serverStatus.onlineCount;
-                    txtStatus.Foreground = new SolidColorBrush(Colors.ForestGreen);
-                }
-                else
-                {
-                    txtStatus.Content = "OFFLINE";
-                    txtStatus.Foreground = new SolidColorBrush(Colors.DarkRed);
-                }
-            }
-
-        }
-
         private void getChangelog()
         {
-            string Url = "http://winterao.com.ar/update/changelog.txt";
+            txtChangelog.Text = null;
+            string Url = "http://winterao.com.ar/update/changelog" + App.SERVER_SELECT + ".txt";
             var webRequest = WebRequest.Create(Url);
             var responseStream = webRequest.GetResponse().GetResponseStream();
 
@@ -288,6 +278,31 @@ namespace Launcher
             WindowState = WindowState.Minimized;
         }
 
+        /**
+         * Boton de Winter
+         */
+        private void btnWinter_Click(object sender, RoutedEventArgs e) {
+
+            cambiarServer("WinterClient","WinterAOResurrection.exe");
+
+            iniciarCheckUpdate();
+
+            ventanaImperium.Visibility = Visibility.Hidden;
+            ventanaWinter.Visibility = Visibility.Visible;
+        }
+        /**
+         * Boton de Imperium
+         */
+        private void btnimperium_Click(object sender, RoutedEventArgs e) {
+
+            cambiarServer("ImperiumClasico", "ImperiumClasico.exe");
+
+            iniciarCheckUpdate();
+
+            ventanaWinter.Visibility = Visibility.Hidden;
+            ventanaImperium.Visibility = Visibility.Visible;
+        }
+
         private void image_discord_Click(object sender, RoutedEventArgs e)
         {
             Process.Start("https://discord.gg/WHWZwYP");
@@ -319,10 +334,5 @@ namespace Launcher
         {
 
         }
-    }
-    public class ServerStatus
-    {
-        public bool ok { get; set; }
-        public int onlineCount { get; set; }
     }
 }

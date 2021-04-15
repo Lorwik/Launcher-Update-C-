@@ -15,8 +15,7 @@ namespace Launcher.src
         public static string VERSIONFILE_PATH = App.ARGENTUM_PATH + App.SERVER_SELECT + "\\VersionInfo.json";
 
 #nullable enable
-        public static VersionInformation Get_LocalVersion(string? customVersionData)
-        {
+        public static VersionInformation Get_LocalVersion(string? customVersionData) {
 
             // Acá guardo el string que obtengo ya sea del parámetro o del archivo en la carpeta Init.
 #pragma warning disable CS8600 // Se va a convertir un literal nulo o un posible valor nulo en un tipo que no acepta valores NULL

@@ -11,7 +11,6 @@ namespace Launcher.src
     class Networking
     {
         public static string ROOT_PATH = "https://winterao.com.ar/update";
-        private readonly string VERSION_PATH = ROOT_PATH + "/" + App.SERVER_SELECT + "/VersionInfo.json";
 
         private readonly List<string> EXCEPCIONES = new List<string>() {
             "/" + App.SERVER_SELECT + "/Init/Config.ini",
@@ -42,25 +41,23 @@ namespace Launcher.src
             byte[] LauncherHadh;
             string hashConverted;
 
-            using (var md5 = System.Security.Cryptography.MD5.Create())
-            {
-                using (var stream = File.OpenRead(Directory.GetCurrentDirectory() + "/Launcher - ComunidadWinter.exe"))
-                {                    
+            using (var md5 = System.Security.Cryptography.MD5.Create()) {
+                using (var stream = File.OpenRead(Directory.GetCurrentDirectory() + "/Launcher - ComunidadWinter.exe")) {                    
                     LauncherHadh = md5.ComputeHash(stream);
                     hashConverted = BitConverter.ToString(LauncherHadh).Replace("-", "").ToLower();
+
                 }
             }
 
-            if (!File.Exists(IO.VERSIONFILE_PATH))
-            {
+            if (!File.Exists(IO.VERSIONFILE_PATH)) {
                 // ... parseamos el string que obtuvimos del servidor.
                 
                 versionLocal = IO.Get_LocalVersion(versionRemotaString);
-            }
-            else // Si existe, ...
-            {
+
+            } else { // Si existe, ...
                 // ... buscamos y parseamos el que está en la carpeta Init.
                 versionLocal = IO.Get_LocalVersion(null);
+
             }
 
             VersionInformation.File archivoLocal, archivoRemoto;
@@ -107,16 +104,13 @@ namespace Launcher.src
             return fileQueue;
         }
 
-
-
-        public VersionInformation Get_RemoteVersion()
-        {
+        public VersionInformation Get_RemoteVersion() {
             WebClient webClient = new WebClient();
             VersionInformation versionRemota = null;
-            try
-            {
+
+            try {
                 // Envio un GET al servidor con el JSON de el archivo de versionado.
-                versionRemotaString = webClient.DownloadString(VERSION_PATH);
+                versionRemotaString = webClient.DownloadString(ROOT_PATH + "/" + App.SERVER_SELECT + "/VersionInfo.json");
                 
                 // Me fijo que la response NO ESTÉ vacía.
                 if (versionRemotaString == null)
@@ -127,18 +121,17 @@ namespace Launcher.src
 
                 // Deserializamos el VersionInfo.json remoto
                 versionRemota = JsonSerializer.Deserialize<VersionInformation>(versionRemotaString);
-            }
-            catch (WebException error)
-            {
+
+            } catch (WebException error) {
+
                 MessageBox.Show(error.Message);
-            }
-            catch (JsonException)
-            {
+
+            } catch (JsonException)  {
                 MessageBox.Show("Has recibido una respuesta invalida por parte del servidor.");
-            }
-            finally
-            {
+
+            } finally {
                 webClient.Dispose();
+
             }
 
             return versionRemota;
